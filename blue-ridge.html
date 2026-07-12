@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blue Ridge Road Trip — September 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --forest: #2D4A3E;
+    --forest-light: #4A6B5A;
+    --sage: #7A9E8E;
+    --sand: #F5F0E8;
+    --terracotta: #C7654A;
+    --gold: #C79A4A;
+    --coastal: #2F6B7A;
+    --slate: #3A3A3A;
+    --mist: #E8E3D9;
+    --cream: #FDFBF7;
+    --trail: #A68B6B;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--sand);
+    color: var(--slate);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .hero {
+    background: linear-gradient(160deg, #24413600, #24413600), var(--forest);
+    color: var(--sand);
+    padding: 3rem 1.5rem 2.25rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 18px, rgba(255,255,255,.04) 18px, rgba(255,255,255,.04) 19px),
+      repeating-linear-gradient(90deg, transparent, transparent 18px, rgba(255,255,255,.025) 18px, rgba(255,255,255,.025) 19px);
+    pointer-events: none;
+  }
+  .hero .kicker { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .18em; opacity: .7; position: relative; margin-bottom: .6rem; }
+  .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(1.9rem, 6vw, 3rem); font-weight: 400; margin-bottom: .5rem; position: relative; line-height: 1.1; }
+  .hero .subtitle { font-size: .95rem; opacity: .82; position: relative; }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 0 1.25rem 3rem; }
+
+  .intro-card {
+    background: var(--cream);
+    border: 1px solid var(--mist);
+    border-left: 4px solid var(--forest);
+    border-radius: 10px;
+    padding: 1.5rem 1.6rem;
+    margin-top: 1.9rem;
+  }
+  .intro-card .eyebrow { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--forest); margin-bottom: .55rem; }
+  .intro-card .lead-in { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--forest); line-height: 1.35; margin-bottom: .7rem; }
+  .intro-card p { font-size: .96rem; margin-bottom: .75rem; }
+  .intro-card p:last-child { margin-bottom: 0; }
+
+  .flex-note { background: var(--cream); border: 1px dashed var(--sage); border-radius: 10px; padding: .9rem 1.15rem; font-size: .87rem; color: #5f5f5f; margin-top: 1.25rem; }
+  .flex-note strong { color: var(--forest); }
+
+  /* two halves */
+  .halves { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+  .half-card { border-radius: 12px; padding: 1.25rem 1.3rem; color: var(--sand); position: relative; overflow: hidden; }
+  .half-card.wedding { background: var(--terracotta); }
+  .half-card.getaway { background: var(--forest); }
+  .half-card .hc-tag { font-size: .66rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; opacity: .8; margin-bottom: .4rem; }
+  .half-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; font-weight: 400; margin-bottom: .35rem; line-height: 1.15; }
+  .half-card .hc-when { font-size: .8rem; opacity: .85; margin-bottom: .55rem; font-weight: 600; }
+  .half-card p { font-size: .85rem; opacity: .95; }
+
+  .section-head { margin-top: 2.75rem; margin-bottom: .25rem; font-family: 'DM Serif Display', serif; font-size: 1.45rem; font-weight: 400; color: var(--forest); }
+  .section-head .part-num { font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--trail); display: block; margin-bottom: .2rem; font-family: 'Inter', sans-serif; }
+  .section-sub { font-size: .87rem; color: #888; margin-bottom: 1.1rem; }
+
+  /* calendar */
+  .calendar-card { background: var(--cream); border: 1px solid var(--mist); border-radius: 12px; padding: 1.25rem; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: .5rem; }
+  .cal-dow { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: #999; text-align: center; padding-bottom: .3rem; }
+  .cal-cell {
+    aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-size: .72rem; padding: .2rem; text-align: center; background: transparent; color: #ccc;
+  }
+  .cal-cell.has-date { color: var(--slate); background: var(--sand); }
+  .cal-cell .cal-num { font-weight: 700; font-size: .8rem; }
+  .cal-cell .cal-tag { font-size: .5rem; font-weight: 600; line-height: 1.05; margin-top: 1px; opacity: .9; }
+  .cal-cell.cal-travel { background: var(--mist); color: var(--trail); }
+  .cal-cell.cal-wedding { background: var(--terracotta); color: #fff; }
+  .cal-cell.cal-getaway { background: var(--forest); color: var(--sand); }
+
+  .cal-legend { display: flex; flex-wrap: wrap; gap: .9rem; margin-top: 1rem; font-size: .76rem; color: #777; }
+  .cal-legend .dot { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: .35rem; vertical-align: -1px; }
+
+  /* collapsible */
+  .collapsible { background: #1f332a; color: var(--sand); border-radius: 12px; margin-top: 1.5rem; overflow: hidden; }
+  .collapsible-header { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 1.25rem; cursor: pointer; user-select: none; }
+  .collapsible-header:hover { background: rgba(255,255,255,.04); }
+  .collapsible-header h2 { font-family: 'DM Serif Display', serif; font-size: 1.15rem; font-weight: 400; }
+  .collapsible-header .ch-sub { font-size: .78rem; opacity: .65; margin-top: 2px; }
+  .collapsible-chevron { transition: transform .2s ease; flex-shrink: 0; }
+  .collapsible.open .collapsible-chevron { transform: rotate(180deg); }
+  .collapsible-body { max-height: 0; overflow: hidden; transition: max-height .3s ease; background: rgba(0,0,0,.15); }
+  .collapsible.open .collapsible-body { max-height: 4000px; }
+  .collapsible-body-inner { padding: 0 1.25rem 1.25rem; }
+  .collapsible-body-inner .pack-block { padding: .75rem 0; border-top: 1px solid rgba(255,255,255,.1); }
+  .collapsible-body-inner .pack-block:first-child { border-top: none; }
+  .collapsible-body-inner .pack-block .pb-head { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; opacity: .8; margin-bottom: .3rem; color: #d8cbb2; }
+  .collapsible-body-inner .pack-block ul { list-style: none; padding: 0; }
+  .collapsible-body-inner .pack-block ul li { font-size: .86rem; opacity: .92; padding: .15rem 0 .15rem 1.1rem; position: relative; }
+  .collapsible-body-inner .pack-block ul li::before { content: ''; position: absolute; left: 0; top: .6rem; width: 5px; height: 5px; border-radius: 50%; background: var(--sage); }
+
+  /* activity cards */
+  .activity-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; margin-top: 1rem; }
+  .activity-card { background: var(--cream); border: 1px solid var(--mist); border-radius: 10px; padding: 1rem 1.1rem; }
+  .activity-card .ac-eyebrow { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--terracotta); margin-bottom: .3rem; }
+  .activity-card h4 { font-size: .96rem; font-weight: 600; margin-bottom: .3rem; }
+  .activity-card p { font-size: .82rem; color: #666; }
+  .activity-card.wide { grid-column: 1 / -1; }
+  .activity-card.feature { background: linear-gradient(135deg, rgba(122,158,142,.16), rgba(199,101,74,.08)); border-color: var(--sage); }
+
+  /* day cards */
+  .day { background: var(--cream); border: 1px solid var(--mist); border-radius: 12px; margin-bottom: 1.25rem; overflow: hidden; }
+  .day-header { color: var(--sand); padding: .9rem 1.25rem; display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: .35rem; }
+  .day-header.wed { background: var(--terracotta); }
+  .day-header.get { background: var(--forest); }
+  .day-header.trv { background: var(--trail); }
+  .day-header .day-label { font-family: 'DM Serif Display', serif; font-size: 1.15rem; font-weight: 400; }
+  .day-header .day-date { font-size: .76rem; opacity: .82; font-weight: 600; }
+  .day-body { padding: 1.25rem; }
+
+  .drive-badge { display: inline-flex; align-items: center; gap: .35rem; background: var(--mist); border-radius: 6px; padding: .3rem .7rem; font-size: .78rem; font-weight: 600; color: var(--trail); margin-bottom: .6rem; }
+
+  .block { margin-bottom: 1rem; }
+  .block:last-child { margin-bottom: 0; }
+  .block-time { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--terracotta); margin-bottom: .15rem; }
+  .block p { font-size: .93rem; }
+  .block ul { list-style: none; padding: 0; }
+  .block ul li { font-size: .92rem; padding: .2rem 0; padding-left: 1.1rem; position: relative; }
+  .block ul li::before { content: ''; position: absolute; left: 0; top: .58rem; width: 5px; height: 5px; border-radius: 50%; background: var(--sage); }
+
+  .highlight {
+    background: linear-gradient(135deg, rgba(122,158,142,.12), rgba(199,101,74,.08));
+    border-left: 3px solid var(--sage); border-radius: 0 8px 8px 0; padding: .75rem 1rem; margin: .75rem 0; font-size: .88rem;
+  }
+
+  .overnight { background: var(--forest); color: var(--sand); border-radius: 8px; padding: .65rem 1rem; font-size: .85rem; font-weight: 500; margin-top: .75rem; display: flex; align-items: center; gap: .5rem; }
+
+  .budget-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; margin-top: 1rem; }
+  .budget-card { background: var(--cream); border: 1px solid var(--mist); border-radius: 10px; padding: 1rem 1.1rem; }
+  .budget-card .bc-label { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--sage); margin-bottom: .2rem; }
+  .budget-card .bc-amt { font-family: 'DM Serif Display', serif; font-size: 1.25rem; color: var(--forest); }
+  .budget-card p { font-size: .8rem; color: #666; margin-top: .2rem; }
+  .budget-total { background: var(--forest); color: var(--sand); border-radius: 10px; padding: 1rem 1.25rem; margin-top: .9rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .3rem; }
+  .budget-total .bt-label { font-size: .9rem; font-weight: 600; }
+  .budget-total .bt-amt { font-family: 'DM Serif Display', serif; font-size: 1.4rem; }
+
+  .closing { background: var(--forest); color: var(--sand); text-align: center; border-radius: 12px; padding: 1.8rem 1.5rem; margin-top: 2.5rem; }
+  .closing h2 { font-family: 'DM Serif Display', serif; font-size: 1.4rem; font-weight: 400; margin-bottom: .5rem; }
+  .closing p { font-size: .92rem; opacity: .92; max-width: 56ch; margin: 0 auto; }
+
+  .foot { text-align: center; padding: 2rem 1rem; font-size: .8rem; color: #aaa; }
+
+  @media (max-width: 560px) {
+    .halves { grid-template-columns: 1fr; }
+    .activity-grid { grid-template-columns: 1fr; }
+    .budget-grid { grid-template-columns: 1fr; }
+    .cal-cell .cal-tag { display: none; }
+  }
+  /* ---- VOTE CARD ---- */
+  .vote-card { background: var(--cream); border: 1px solid var(--mist); border-left: 4px solid var(--terracotta); border-radius: 12px; padding: 1.4rem 1.5rem; margin-top: 1.6rem; }
+  .vote-card .eyebrow { font-size: .68rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color: var(--terracotta); margin-bottom:.4rem; }
+  .vote-card h2 { font-family:'DM Serif Display',serif; font-size:1.35rem; font-weight:400; color:var(--forest); margin-bottom:.35rem; }
+  .vote-card .vote-intro { font-size:.87rem; color:#666; margin-bottom:1rem; }
+  .voter-row { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:.45rem; }
+  .voter-pill { border:1px solid var(--mist); background:var(--sand); border-radius:999px; padding:.5rem 1.15rem; font-family:'Inter',sans-serif; font-size:.86rem; font-weight:600; color:#777; cursor:pointer; transition:all .15s ease; }
+  .voter-pill.active { background:var(--forest); border-color:var(--forest); color:var(--sand); }
+  .voter-hint { font-size:.8rem; color:#999; margin-bottom:.5rem; }
+  .vote-q { margin-top:1.15rem; opacity:.4; pointer-events:none; transition:opacity .2s ease; }
+  .vote-q.enabled { opacity:1; pointer-events:auto; }
+  .vote-q .vq-label { font-size:.82rem; font-weight:700; color:var(--slate); margin-bottom:.5rem; }
+  .vq-options { display:flex; flex-wrap:wrap; gap:.5rem; }
+  .vq-opt { border:1px solid var(--mist); background:#fff; border-radius:8px; padding:.5rem .85rem; font-family:'Inter',sans-serif; font-size:.82rem; font-weight:500; color:#555; cursor:pointer; transition:all .15s ease; }
+  .vq-opt.chosen { background:var(--terracotta); border-color:var(--terracotta); color:#fff; }
+  .vote-actions { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.3rem; align-items:center; }
+  .vote-btn { border:none; border-radius:8px; padding:.6rem 1.15rem; font-family:'Inter',sans-serif; font-size:.84rem; font-weight:600; cursor:pointer; text-decoration:none; display:inline-block; }
+  .vote-btn.primary { background:var(--forest); color:var(--sand); }
+  .vote-btn.secondary { background:var(--mist); color:var(--forest); }
+  .vote-status { font-size:.8rem; color:var(--forest); font-weight:600; }
+  .vote-note { font-size:.78rem; color:#999; margin-top:.95rem; font-style:italic; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="kicker">A Road-Trip Journal · September 2026</div>
+  <h1>The Blue Ridge Road Trip</h1>
+  <div class="subtitle">Tampa → the mountains of western North Carolina → home</div>
+</div>
+
+<div class="wrap">
+
+  <a href="./" style="display:inline-block;margin-top:1.25rem;font-size:.85rem;font-weight:600;color:#2D4A3E;text-decoration:none;">&larr; Trip Planner</a>
+  <div style="font-size:.8rem;color:#999;margin-top:.3rem;">Cast your vote for this trip on the <a href="./" style="color:#C7654A;">Trip Planner</a> home page.</div>
+
+  <div class="intro-card">
+    <div class="eyebrow">One Drive, Two Reasons</div>
+    <p class="lead-in">One long drive up into the Blue Ridge — and two completely separate reasons to be there.</p>
+    <p>The first is a wedding. Kaylee &amp; Ben are getting married in <strong>Tuckasegee, North Carolina</strong> on Saturday, September 5th — the anchor of the whole trip and its own event entirely.</p>
+    <p>The second is long overdue: once the celebrating is done, we're staying in the mountains for two unhurried days with <strong>Sam &amp; Jen</strong>, who are driving over from the Lexington, Kentucky area. Not a quick dinner — real time together, in one of the prettiest corners of the state.</p>
+    <p>To be clear, these are two unrelated things that happen to share the same week and the same mountains. Different people, different plans — the wedding crowd and Sam &amp; Jen don't know each other, and that's exactly as it should be. This page just follows the trip from one to the next.</p>
+  </div>
+
+  <div class="halves">
+    <div class="half-card wedding">
+      <div class="hc-tag">The Anchor</div>
+      <h3>Kaylee &amp; Ben's Wedding</h3>
+      <div class="hc-when">Sat · September 5 · Tuckasegee, NC</div>
+      <p>The reason the dates are fixed. Its own event, celebrated on its own — everything else on the trip flows around it.</p>
+    </div>
+    <div class="half-card getaway">
+      <div class="hc-tag">The Getaway</div>
+      <h3>Two Days with Sam &amp; Jen</h3>
+      <div class="hc-when">Sun–Mon · September 6–7 · western NC</div>
+      <p>A relaxed mountain reunion after the wedding — waterfalls, a cabin, a real Appalachian Trail hike, and a lot of catching up.</p>
+    </div>
+  </div>
+
+  <h2 class="section-head">The Week at a Glance</h2>
+  <p class="section-sub">Drive up, the wedding weekend, two days with Sam &amp; Jen, then straight home</p>
+  <div class="calendar-card">
+    <div class="cal-grid" id="cal-grid"></div>
+    <div class="cal-legend" id="cal-legend"></div>
+  </div>
+  <div class="flex-note">
+    <strong>Loose by design.</strong> The wedding date is the only fixed point. When we drive up, how we split the drive, and how we shape the two days with Sam &amp; Jen are all flexible — the plan below is a starting point, not a schedule to keep.
+  </div>
+
+  <!-- ============ PART ONE: THE WEDDING ============ -->
+  <h2 class="section-head"><span class="part-num">Part One</span>The Wedding in Tuckasegee</h2>
+  <p class="section-sub">Kaylee &amp; Ben · Saturday, September 5 · its own celebration, front and center</p>
+
+  <div class="day">
+    <div class="day-header trv"><span class="day-label">Wednesday — Drive Up</span><span class="day-date">September 2</span></div>
+    <div class="day-body">
+      <div class="drive-badge">🚗 Tampa → Tuckasegee · ~9–9.5 hrs (≈575 mi)</div>
+      <div class="block"><p>The big push north out of Florida and up into the mountains. It's a long day, so we can leave early or split it with a stop around Atlanta and finish Thursday morning — whatever keeps it easy. Arrive in the Tuckasegee / Cashiers area and settle in.</p></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <div class="day-header wed"><span class="day-label">Thursday–Friday — Wedding Weekend Begins</span><span class="day-date">September 3–4</span></div>
+    <div class="day-body">
+      <div class="block"><div class="block-time">Lead-up</div><p>Settle into the mountains and slide into wedding mode — welcome gatherings, a rehearsal dinner, and time with Kaylee &amp; Ben's people. An easy day or two before the main event, with the cool mountain evenings that make early September up here so good.</p></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <div class="day-header wed"><span class="day-label">Saturday — The Wedding</span><span class="day-date">September 5</span></div>
+    <div class="day-body">
+      <div class="block"><div class="block-time">The Main Event</div><p>Kaylee &amp; Ben's wedding day in Tuckasegee. The whole reason the trip exists, and a day to be fully present for — no agenda here beyond celebrating the two of them.</p></div>
+      <div class="highlight">This is where the trip pivots. Everything before today points to the wedding; everything after is the mountains with Sam &amp; Jen.</div>
+    </div>
+  </div>
+
+  <!-- ============ PART TWO: THE GETAWAY ============ -->
+  <h2 class="section-head"><span class="part-num">Part Two</span>Two Days in the Mountains with Sam &amp; Jen</h2>
+  <p class="section-sub">The main narrative — a slow, scenic reunion once the wedding's behind us</p>
+
+  <div class="flex-note" style="margin-top:0;">
+    Sam &amp; Jen drive in from the Lexington area (~5 hrs) and meet us at a cabin on <strong>Bear Lake</strong> in Tuckasegee — a quiet mountain lake that makes an ideal home base, about 15 minutes from Cashiers. Two full days, deliberately unhurried.
+  </div>
+
+  <div class="day">
+    <div class="day-header get"><span class="day-label">Sunday — Waterfalls, Cashiers &amp; Sylva</span><span class="day-date">September 6</span></div>
+    <div class="day-body">
+      <div class="block"><div class="block-time">Morning</div><p>Sam &amp; Jen arrive at the Bear Lake cabin. Coffee on the porch, no rush — ease into the day and let everyone shake off the drive.</p></div>
+      <div class="block"><div class="block-time">Midday — an easy waterfall or two</div>
+        <ul>
+          <li><strong>Silver Run Falls</strong> — a 25-ft falls and swimming hole just off Hwy 107 south of Cashiers, a quarter-mile stroll from the road</li>
+          <li><strong>High Falls at Lake Glenville</strong> — a 100+ ft falls on the West Fork of the Tuckasegee, a short hike with a big payoff</li>
+        </ul>
+      </div>
+      <div class="block"><div class="block-time">Afternoon — Sylva</div><p>Drive over to <strong>Sylva</strong> and wander Main Street below the photogenic Jackson County Courthouse. Coffee at <strong>City Lights Cafe</strong> (attached to the bookstore) or <strong>Blue Ridge Bootleg Coffee</strong>, then a pint at <strong>Innovation Brewing</strong> or <strong>Lazy Hiker</strong>.</p></div>
+      <div class="block"><div class="block-time">Evening</div><p>Dinner back toward Cashiers — <strong>The Ugly Dog Public House</strong> or <strong>Whiteside Brewing Co.</strong> — then back to the cabin for the good part: the porch, a fire, and a long catch-up with nowhere to be.</p></div>
+      <div class="overnight">🏡 Cabin on Bear Lake, Tuckasegee — home base both nights</div>
+    </div>
+  </div>
+
+  <div class="day">
+    <div class="day-header get"><span class="day-label">Monday — The Appalachian Trail Day</span><span class="day-date">September 7 · Labor Day</span></div>
+    <div class="day-body">
+      <div class="drive-badge">🥾 The one big hike — planned for today, rested, after the wedding weekend</div>
+      <div class="block"><div class="block-time">Morning — Siler Bald on the A.T.</div><p>Drive to <strong>Wayah Gap</strong> near Franklin (~1 hr) and hike the <strong>Appalachian Trail to Siler Bald</strong> — about 4 miles round trip, moderate, climbing to a wide grassy summit with 360° views across the Nantahala National Forest. A genuine A.T. day hike without needing any backpacking gear, and the kind of view you plan a trip around.</p></div>
+      <div class="highlight"><strong>Rested, on purpose:</strong> saving the real hike for after the wedding means nobody's cramming it in tired. Weather in the mountains turns fast in September, so we'll check the forecast that morning and keep it flexible.</div>
+      <div class="block"><div class="block-time">Afternoon — the Blue Ridge Parkway</div><p>On the way back, hop on the <strong>Blue Ridge Parkway</strong> for the drive to <strong>Waterrock Knob</strong> (MP 451), the highest visitor center on the Parkway, with a short walk to a near-360° overlook of the Great Balsams and Smokies. Pull off at <strong>Richland Balsam</strong>, the Parkway's highest point, along the way.</p></div>
+      <div class="block"><div class="block-time">Evening</div><p>Last dinner together — maybe back in Sylva or Cashiers — then a final night on the cabin porch. Slow evening, no schedule.</p></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <div class="day-header trv"><span class="day-label">Tuesday — Drive Home</span><span class="day-date">September 8</span></div>
+    <div class="day-body">
+      <div class="drive-badge">🚗 Tuckasegee → Tampa · ~9–9.5 hrs · Sam &amp; Jen ~5 hrs to Lexington</div>
+      <div class="block"><p>One last cabin breakfast, then everyone points home — us south to Tampa, Sam &amp; Jen back toward Lexington. Long drive, full week, worth every mile.</p></div>
+    </div>
+  </div>
+
+  <!-- ============ PLACES ============ -->
+  <h2 class="section-head">Places We'll Explore</h2>
+  <p class="section-sub">Real spots around Tuckasegee, Cashiers, Highlands &amp; Sylva — enjoy the region, no checklist required</p>
+  <div class="activity-grid">
+    <div class="activity-card">
+      <div class="ac-eyebrow">Waterfall · Easy</div>
+      <h4>Silver Run Falls</h4>
+      <p>A 25-ft falls into a calm pool just off Hwy 107 south of Cashiers — a quarter-mile round trip, the definition of a low-effort, high-reward stop.</p>
+    </div>
+    <div class="activity-card">
+      <div class="ac-eyebrow">Waterfall</div>
+      <h4>High Falls, Lake Glenville</h4>
+      <p>A 100+ ft cascade on the West Fork of the Tuckasegee near Cashiers — on dam-release days it becomes one of the most powerful falls in the state.</p>
+    </div>
+    <div class="activity-card">
+      <div class="ac-eyebrow">Waterfall · Scenic Drive</div>
+      <h4>Dry Falls &amp; Bridal Veil Falls</h4>
+      <p>Two roadside falls on US-64 toward Highlands — you can walk behind Dry Falls (75 ft), and Bridal Veil drips right beside the old highway.</p>
+    </div>
+    <div class="activity-card">
+      <div class="ac-eyebrow">Waterfall · Tallest in NC</div>
+      <h4>Whitewater Falls</h4>
+      <p>At 411 ft, the tallest falls in the East. A short paved walkway leads to the upper overlook — an easy add-on if the group wants one more.</p>
+    </div>
+    <div class="activity-card">
+      <div class="ac-eyebrow">Overlook</div>
+      <h4>Whiteside Mountain</h4>
+      <p>A 2-mile loop on some of the oldest cliffs on Earth, between Cashiers and Highlands, with big drop-off views over the valleys.</p>
+    </div>
+    <div class="activity-card">
+      <div class="ac-eyebrow">Mountain Town</div>
+      <h4>Downtown Sylva</h4>
+      <p>Walkable Main Street with the most-photographed courthouse in NC, three coffee shops and three breweries — the region's easy-hangout town.</p>
+    </div>
+    <div class="activity-card wide feature">
+      <div class="ac-eyebrow">The Hike</div>
+      <h4>🥾 Siler Bald via the Appalachian Trail</h4>
+      <p>From Wayah Gap near Franklin, ~4 miles round trip to a grassy 5,200-ft bald with 360° views across the Nantahalas. Moderate, memorable, and the planned centerpiece of the getaway — saved for the rested day after the wedding. Nearby <strong>Wayah Bald</strong> adds a short paved walk to a historic stone lookout tower if the group wants more.</p>
+    </div>
+    <div class="activity-card wide feature">
+      <div class="ac-eyebrow">Scenic Drive</div>
+      <h4>🚗 Blue Ridge Parkway to Waterrock Knob</h4>
+      <p>The stretch near Balsam climbs past <strong>Richland Balsam</strong> (the Parkway's highest point, 6,053 ft) to <strong>Waterrock Knob</strong> (MP 451), where a short walk opens a near-360° view over the Great Balsams, Smokies, and Nantahalas. Best light is late afternoon — a natural pairing with the hike day.</p>
+    </div>
+    <div class="activity-card wide feature">
+      <div class="ac-eyebrow">Home Base</div>
+      <h4>🏡 A Cabin on Bear Lake, Tuckasegee</h4>
+      <p>A pristine 476-acre mountain lake at 2,500 ft, ~15 minutes from Cashiers and right where the wedding is. This is where the getaway really lives — porch coffee, a grilled dinner, a fire, board games, and long conversations. The lake and the towns are close enough that we never have to backtrack or over-drive.</p>
+    </div>
+  </div>
+
+  <!-- ============ BUDGET ============ -->
+  <h2 class="section-head">The Getaway, Roughly</h2>
+  <p class="section-sub">A ballpark per couple for the two days with Sam &amp; Jen — to show how easy it is, not to pin down a budget</p>
+  <div class="budget-grid">
+    <div class="budget-card">
+      <div class="bc-label">Cabin (2 nights)</div>
+      <div class="bc-amt">~$180–260</div>
+      <p>Your share of a Bear Lake cabin split between both couples for Sunday and Monday nights.</p>
+    </div>
+    <div class="budget-card">
+      <div class="bc-label">Groceries</div>
+      <div class="bc-amt">~$40</div>
+      <p>Your share of cabin breakfasts, coffee, snacks, and a grilled dinner in.</p>
+    </div>
+    <div class="budget-card">
+      <div class="bc-label">Restaurants &amp; Coffee</div>
+      <div class="bc-amt">~$90–130</div>
+      <p>A couple of dinners out in Cashiers or Sylva, plus coffee and a brewery stop.</p>
+    </div>
+    <div class="budget-card">
+      <div class="bc-label">Activities &amp; Parking</div>
+      <div class="bc-amt">~$0–30</div>
+      <p>The waterfalls, the A.T. hike, and the Parkway are all free — just gas and the odd parking fee.</p>
+    </div>
+  </div>
+  <div class="budget-total">
+    <span class="bt-label">Rough total, per couple (getaway only)</span>
+    <span class="bt-amt">~$310–460</span>
+  </div>
+  <div class="flex-note" style="margin-top:.9rem;">
+    Splitting the cabin keeps it cheap and — more to the point — gives everyone one comfortable place to cook, sit by the lake, and actually spend time together. The wedding is its own separate thing, budgeted on its own.
+  </div>
+
+  <!-- ============ PACKING LIST ============ -->
+  <div class="collapsible" id="pack-collapsible">
+    <div class="collapsible-header" onclick="toggleCollapse('pack-collapsible')">
+      <div>
+        <h2>Packing List</h2>
+        <div class="ch-sub">Wedding weekend + mountain hiking · tap to show</div>
+      </div>
+      <svg class="collapsible-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="collapsible-body">
+      <div class="collapsible-body-inner">
+        <div class="pack-block">
+          <div class="pb-head">The Wedding</div>
+          <ul>
+            <li>Wedding-appropriate outfits (check the dress code / venue)</li>
+            <li>Dress shoes that can handle a mountain venue</li>
+            <li>Gift or card, and the invitation details</li>
+            <li>A layer for a cool mountain evening</li>
+          </ul>
+        </div>
+        <div class="pack-block">
+          <div class="pb-head">The A.T. Hike &amp; Waterfalls</div>
+          <ul>
+            <li>Hiking shoes or trail runners with real grip</li>
+            <li>Daypack, water bottles or hydration, trail snacks</li>
+            <li>Rain shell — September mountain storms move fast</li>
+            <li>Sunscreen, hat, sunglasses, bug spray</li>
+            <li>A layer for the summit; it's cooler and windier up high</li>
+          </ul>
+        </div>
+        <div class="pack-block">
+          <div class="pb-head">Cabin &amp; Downtime</div>
+          <ul>
+            <li>Comfortable casual clothes for town and the porch</li>
+            <li>A favorite board game or two</li>
+            <li>Something to share — a bottle of wine or local beer</li>
+            <li>Swimsuit if the lake tempts anyone</li>
+          </ul>
+        </div>
+        <div class="pack-block">
+          <div class="pb-head">Road &amp; Basics</div>
+          <ul>
+            <li>Toiletries, medications, contacts/glasses</li>
+            <li>Phone chargers, car mount, cables</li>
+            <li>Snacks, a cooler, and a playlist for the long drive</li>
+            <li>Camera, if you bring one</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="closing">
+    <h2>Two reasons, one beautiful week</h2>
+    <p>A wedding we wouldn't miss, and two days with old friends we've put off for too long — stitched into one drive up into the Blue Ridge. Different people, different plans, the same mountains. Mostly, it's about being there for the people who matter and coming home with a full tank of good memories.</p>
+  </div>
+
+</div>
+
+<div class="foot">Blue Ridge Road Trip · September 2026 · Tampa ↔ Tuckasegee &amp; the mountains of western North Carolina</div>
+
+<script>
+  var calData = {
+    2:  {type:'cal-travel',  tag:'Drive up'},
+    3:  {type:'cal-wedding', tag:'Arrive'},
+    4:  {type:'cal-wedding', tag:'Welcome'},
+    5:  {type:'cal-wedding', tag:'Wedding'},
+    6:  {type:'cal-getaway', tag:'Sam & Jen'},
+    7:  {type:'cal-getaway', tag:'A.T. hike'},
+    8:  {type:'cal-travel',  tag:'Drive home'}
+  };
+
+  function toggleCollapse(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+
+  function renderCalendar() {
+    var grid = document.getElementById('cal-grid');
+    var legend = document.getElementById('cal-legend');
+    grid.innerHTML = '';
+    ['S','M','T','W','T','F','S'].forEach(function(d){
+      var el = document.createElement('div'); el.className = 'cal-dow'; el.textContent = d; grid.appendChild(el);
+    });
+    // September 2026: Sept 1 is a Tuesday
+    var first = new Date(2026, 8, 1);
+    var startOffset = first.getDay();
+    for (var i = 0; i < startOffset; i++) {
+      var blank = document.createElement('div'); blank.className = 'cal-cell'; grid.appendChild(blank);
+    }
+    for (var day = 1; day <= 30; day++) {
+      var cell = document.createElement('div');
+      cell.className = 'cal-cell has-date';
+      var info = calData[day];
+      if (info) { cell.classList.add(info.type); }
+      var num = document.createElement('div'); num.className = 'cal-num'; num.textContent = day; cell.appendChild(num);
+      if (info && info.tag) { var tag = document.createElement('div'); tag.className = 'cal-tag'; tag.textContent = info.tag; cell.appendChild(tag); }
+      grid.appendChild(cell);
+    }
+    legend.innerHTML =
+      '<span><span class="dot" style="background:var(--mist)"></span>Travel day</span>' +
+      '<span><span class="dot" style="background:var(--terracotta)"></span>Wedding weekend (Kaylee &amp; Ben)</span>' +
+      '<span><span class="dot" style="background:var(--forest)"></span>Two days with Sam &amp; Jen</span>';
+  }
+
+  renderCalendar();
+</script>
+
+</body>
+</html>

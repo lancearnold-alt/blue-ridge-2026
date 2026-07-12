@@ -3,605 +3,300 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Let's Get Together — September 2026 Trip Planner</title>
+<title>The Atlanta Trip — September 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
   :root {
-    --forest:#2D4A3E; --forest-light:#4A6B5A; --sage:#7A9E8E; --sand:#F5F0E8;
-    --terracotta:#C7654A; --gold:#C79A4A; --coastal:#2F6B7A; --slate:#3A3A3A;
-    --mist:#E8E3D9; --cream:#FDFBF7; --trail:#A68B6B;
+    --forest:#2D4A3E; --sage:#7A9E8E; --sand:#F5F0E8; --terracotta:#C7654A;
+    --coastal:#2F6B7A; --slate:#3A3A3A; --mist:#E8E3D9; --cream:#FDFBF7; --trail:#A68B6B;
   }
   body { font-family:'Inter',system-ui,sans-serif; background:var(--sand); color:var(--slate); line-height:1.65; -webkit-font-smoothing:antialiased; }
 
-  /* top nav */
-  .topnav { position:sticky; top:0; z-index:1000; background:rgba(45,74,62,.97); backdrop-filter:blur(6px); display:flex; gap:.25rem; justify-content:center; flex-wrap:wrap; padding:.55rem .5rem; }
-  .topnav a { color:var(--sand); text-decoration:none; font-size:.78rem; font-weight:600; padding:.35rem .7rem; border-radius:7px; opacity:.85; }
-  .topnav a:hover { background:rgba(255,255,255,.1); opacity:1; }
+  .hero { background:var(--forest); color:var(--sand); padding:2.75rem 1.5rem 2rem; text-align:center; }
+  .hero .kicker { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.18em; opacity:.7; margin-bottom:.55rem; }
+  .hero h1 { font-family:'DM Serif Display',serif; font-size:clamp(2rem,6vw,2.9rem); font-weight:400; margin-bottom:.4rem; }
+  .hero .subtitle { font-size:.95rem; opacity:.85; max-width:42ch; margin:0 auto; }
 
-  .hero { background:var(--forest); color:var(--sand); padding:2.75rem 1.5rem 2rem; text-align:center; position:relative; overflow:hidden; }
-  .hero::before { content:''; position:absolute; inset:0;
-    background: repeating-linear-gradient(0deg,transparent,transparent 18px,rgba(255,255,255,.04) 18px,rgba(255,255,255,.04) 19px),
-      repeating-linear-gradient(90deg,transparent,transparent 18px,rgba(255,255,255,.025) 18px,rgba(255,255,255,.025) 19px); pointer-events:none; }
-  .hero .kicker { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.18em; opacity:.7; position:relative; margin-bottom:.6rem; }
-  .hero h1 { font-family:'DM Serif Display',serif; font-size:clamp(2rem,6vw,3.1rem); font-weight:400; margin-bottom:.5rem; position:relative; line-height:1.1; }
-  .hero .subtitle { font-size:.98rem; opacity:.85; position:relative; max-width:44ch; margin:0 auto; }
+  .wrap { max-width:720px; margin:0 auto; padding:0 1.25rem 3rem; }
 
-  .wrap { max-width:820px; margin:0 auto; padding:0 1.25rem 3rem; }
+  .intro { font-size:.98rem; color:#4a4a4a; margin-top:1.8rem; }
+  .intro strong { color:var(--forest); }
 
-  .intro-card { background:var(--cream); border:1px solid var(--mist); border-left:4px solid var(--forest); border-radius:10px; padding:1.4rem 1.5rem; margin-top:1.9rem; }
-  .intro-card .eyebrow { font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--forest); margin-bottom:.5rem; }
-  .intro-card p { font-size:.95rem; margin-bottom:.6rem; }
-  .intro-card p:last-child { margin-bottom:0; }
+  /* fixed facts — one calm line */
+  .facts { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.2rem; }
+  .fact { flex:1 1 220px; background:var(--cream); border:1px solid var(--mist); border-radius:10px; padding:.8rem 1rem; font-size:.85rem; }
+  .fact b { display:block; font-size:.66rem; text-transform:uppercase; letter-spacing:.07em; color:var(--sage); font-weight:700; margin-bottom:.15rem; }
 
-  /* what's fixed strip */
-  .fixed-strip { display:grid; grid-template-columns:repeat(3,1fr); gap:.9rem; margin-top:1.4rem; }
-  .fixed-card { border-radius:12px; padding:1.1rem 1.2rem; color:#fff; }
-  .fixed-card.flights { background:var(--forest); }
-  .fixed-card.wedding { background:var(--terracotta); }
-  .fixed-card.flex { background:var(--trail); }
-  .fixed-card .fc-badge { font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:.09em; opacity:.85; margin-bottom:.35rem; }
-  .fixed-card h3 { font-family:'DM Serif Display',serif; font-size:1.1rem; font-weight:400; margin-bottom:.3rem; }
-  .fixed-card p { font-size:.83rem; opacity:.95; }
+  /* tabs */
+  .tabs { display:flex; flex-wrap:wrap; gap:.4rem; margin-top:2rem; background:var(--mist); border-radius:12px; padding:.3rem; }
+  .tab-btn { flex:1 1 auto; border:none; background:transparent; padding:.7rem .6rem; border-radius:9px; font-family:'Inter',sans-serif; font-weight:600; font-size:.83rem; color:#888; cursor:pointer; transition:all .15s ease; }
+  .tab-btn.active { background:var(--cream); color:var(--forest); box-shadow:0 1px 3px rgba(0,0,0,.08); }
 
-  /* voter selector */
-  .voter-bar { background:var(--cream); border:1px solid var(--mist); border-radius:12px; padding:1.15rem 1.35rem; margin-top:1.5rem; }
-  .voter-bar .vb-label { font-size:.8rem; font-weight:700; color:var(--slate); margin-bottom:.6rem; }
-  .voter-row { display:flex; flex-wrap:wrap; gap:.5rem; }
-  .voter-pill { border:1px solid var(--mist); background:var(--sand); border-radius:999px; padding:.5rem 1.15rem; font-family:'Inter',sans-serif; font-size:.86rem; font-weight:600; color:#777; cursor:pointer; transition:all .15s ease; }
-  .voter-pill.active { background:var(--forest); border-color:var(--forest); color:var(--sand); }
-  .voter-hint { font-size:.8rem; color:#999; margin-top:.6rem; }
+  .panel { display:none; }
+  .panel.active { display:block; }
 
-  /* extension toggle */
-  .ext-toggle { background:var(--cream); border:1px solid var(--mist); border-radius:12px; padding:1rem 1.3rem; margin-top:1.2rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
-  .ext-toggle .et-label { font-size:.85rem; font-weight:700; color:var(--slate); }
-  .ext-toggle .et-sub { font-size:.76rem; color:#999; }
-  .ext-buttons { display:flex; gap:.4rem; }
-  .ext-btn { border:1px solid var(--mist); background:var(--sand); border-radius:8px; padding:.5rem .85rem; font-size:.78rem; font-weight:600; color:#888; cursor:pointer; font-family:'Inter',sans-serif; }
-  .ext-btn.active { background:var(--coastal); border-color:var(--coastal); color:#fff; }
+  .opt-head { margin-top:1.6rem; }
+  .opt-theme { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--terracotta); }
+  .opt-title { font-family:'DM Serif Display',serif; font-size:1.5rem; color:var(--forest); line-height:1.15; margin-top:.15rem; }
+  .opt-idea { font-size:.95rem; color:#4a4a4a; margin-top:.6rem; }
 
-  .section-label { margin-top:2.5rem; font-family:'DM Serif Display',serif; font-size:1.5rem; color:var(--forest); }
-  .section-sub { font-size:.88rem; color:#888; margin-bottom:1.2rem; }
+  /* getting there */
+  .gt { background:var(--cream); border:1px solid var(--mist); border-radius:12px; padding:1.1rem 1.25rem; margin-top:1.2rem; }
+  .gt h3 { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--sage); margin-bottom:.7rem; }
+  .gt-row { display:flex; gap:.8rem; padding:.65rem 0; border-top:1px solid var(--mist); }
+  .gt-row:first-of-type { border-top:none; }
+  .gt-who { flex:0 0 128px; font-weight:700; font-size:.85rem; color:var(--forest); }
+  .gt-how { font-size:.88rem; color:#555; }
+  .gt-how .drive { display:inline-block; background:var(--mist); color:var(--trail); border-radius:5px; padding:.05rem .45rem; font-size:.78rem; font-weight:600; margin-top:.2rem; }
 
-  /* status badges */
-  .badge { font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; padding:.32rem .6rem; border-radius:999px; white-space:nowrap; display:inline-block; }
-  .badge.confirmed { background:var(--forest); color:var(--sand); }
-  .badge.proposed { background:var(--mist); color:#8a7a5f; }
-  .badge.vote { background:var(--terracotta); color:#fff; }
-  .badge.reserve { background:var(--coastal); color:#fff; }
-  .badge.final { background:#eee6d8; color:#9a8a72; }
+  /* day shape */
+  .shape { margin-top:1.2rem; }
+  .shape h3 { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--sage); margin-bottom:.5rem; }
+  .shape-row { display:flex; gap:.7rem; font-size:.9rem; padding:.35rem 0; }
+  .shape-day { flex:0 0 84px; font-weight:700; color:var(--terracotta); font-size:.82rem; }
 
-  /* trip option cards */
-  .trip { background:var(--cream); border:1px solid var(--mist); border-radius:14px; overflow:hidden; margin-bottom:1.4rem; border-top:5px solid var(--sage); }
-  .trip.opt-a { border-top-color:var(--terracotta); }
-  .trip.opt-b { border-top-color:var(--gold); }
-  .trip.opt-c { border-top-color:var(--forest); }
-  .trip.opt-d { border-top-color:var(--coastal); }
-  .trip.chosen { box-shadow:0 0 0 3px var(--forest); }
-  .trip-head { padding:1.15rem 1.4rem .4rem; display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap; }
-  .trip-optlabel { font-size:.66rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--trail); }
-  .trip-title { font-family:'DM Serif Display',serif; font-size:1.35rem; color:var(--forest); line-height:1.15; }
-  .trip-theme { font-size:.82rem; color:#888; margin-top:.15rem; }
-  .trip-when { font-size:.76rem; color:#aaa; font-weight:600; margin-top:.2rem; }
-  .trip-body { padding:.4rem 1.4rem 1.4rem; }
-  .trip-summary { font-size:.9rem; color:#555; margin:.6rem 0 .9rem; }
-  .trip-facts { display:grid; grid-template-columns:1fr 1fr; gap:.5rem .9rem; margin-bottom:.9rem; }
-  .trip-facts .tf { font-size:.8rem; }
-  .trip-facts .tf strong { display:block; font-size:.64rem; text-transform:uppercase; letter-spacing:.05em; color:#aaa; font-weight:700; margin-bottom:1px; }
-  .ext-note { font-size:.82rem; background:rgba(47,107,122,.08); border-left:3px solid var(--coastal); border-radius:0 7px 7px 0; padding:.5rem .75rem; margin-bottom:.9rem; }
-  .trip-actions { display:flex; gap:.6rem; flex-wrap:wrap; align-items:center; }
-  .trip-link { font-size:.84rem; font-weight:600; color:var(--terracotta); text-decoration:none; }
-  .trip-link:hover { text-decoration:underline; }
-  .pick-btn { border:1px solid var(--forest); background:var(--sand); color:var(--forest); border-radius:8px; padding:.5rem 1rem; font-size:.82rem; font-weight:600; cursor:pointer; font-family:'Inter',sans-serif; }
-  .pick-btn.picked { background:var(--forest); color:var(--sand); }
+  .pt { display:grid; grid-template-columns:1fr 1fr; gap:.8rem; margin-top:1.2rem; }
+  .pt-card { background:var(--cream); border:1px solid var(--mist); border-radius:10px; padding:.85rem 1rem; font-size:.85rem; }
+  .pt-card b { display:block; font-size:.65rem; text-transform:uppercase; letter-spacing:.06em; color:var(--sage); font-weight:700; margin-bottom:.2rem; }
 
-  /* map */
-  .map-wrap { margin-top:.5rem; }
-  #trip-map { height:440px; border-radius:12px; border:1px solid var(--mist); }
-  .route-toggles { display:flex; flex-wrap:wrap; gap:.45rem; margin:.8rem 0; }
-  .rt-btn { border:1px solid var(--mist); background:var(--cream); border-radius:8px; padding:.45rem .8rem; font-size:.78rem; font-weight:600; cursor:pointer; font-family:'Inter',sans-serif; color:#666; }
-  .rt-btn.on { color:#fff; }
-  .rt-btn.on.a { background:var(--terracotta); border-color:var(--terracotta); }
-  .rt-btn.on.b { background:var(--gold); border-color:var(--gold); }
-  .rt-btn.on.c { background:var(--forest); border-color:var(--forest); }
-  .rt-btn.on.d { background:var(--coastal); border-color:var(--coastal); }
-  .route-summary { display:grid; grid-template-columns:repeat(2,1fr); gap:.8rem; margin-top:1rem; }
-  .rs-card { background:var(--cream); border:1px solid var(--mist); border-radius:10px; padding:.85rem 1rem; }
-  .rs-card .rs-label { font-size:.64rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--sage); margin-bottom:.2rem; }
-  .rs-card .rs-val { font-size:.85rem; color:#444; }
-
-  /* votes */
-  .vote-card { background:var(--cream); border:1px solid var(--mist); border-left:4px solid var(--terracotta); border-radius:12px; padding:1.4rem 1.5rem; margin-top:1.5rem; }
-  .vote-card h2 { font-family:'DM Serif Display',serif; font-size:1.35rem; font-weight:400; color:var(--forest); margin-bottom:.3rem; }
-  .vote-card .vc-sub { font-size:.85rem; color:#888; margin-bottom:1rem; }
-  .vote-q { margin-bottom:1.15rem; opacity:.4; pointer-events:none; transition:opacity .2s ease; }
-  .vote-q.enabled { opacity:1; pointer-events:auto; }
-  .vote-q .vq-label { font-size:.82rem; font-weight:700; color:var(--slate); margin-bottom:.45rem; }
-  .vote-q .vq-label .tier { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--terracotta); margin-right:.4rem; }
-  .vq-options { display:flex; flex-wrap:wrap; gap:.5rem; }
-  .vq-opt { border:1px solid var(--mist); background:#fff; border-radius:8px; padding:.5rem .85rem; font-family:'Inter',sans-serif; font-size:.82rem; font-weight:500; color:#555; cursor:pointer; transition:all .15s ease; }
-  .vq-opt.chosen { background:var(--terracotta); border-color:var(--terracotta); color:#fff; }
-  .vote-actions { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.2rem; align-items:center; }
-  .vote-btn { border:none; border-radius:8px; padding:.6rem 1.15rem; font-family:'Inter',sans-serif; font-size:.84rem; font-weight:600; cursor:pointer; text-decoration:none; display:inline-block; text-align:center; }
-  .vote-btn.primary { background:var(--forest); color:var(--sand); }
-  .vote-btn.secondary { background:var(--mist); color:var(--forest); }
-  .vote-status { font-size:.8rem; color:var(--forest); font-weight:600; }
-  .vote-note { font-size:.78rem; color:#999; margin-top:.9rem; font-style:italic; }
-
-  .closing { background:var(--forest); color:var(--sand); text-align:center; border-radius:14px; padding:1.9rem 1.5rem; margin-top:2.5rem; }
-  .closing h2 { font-family:'DM Serif Display',serif; font-size:1.45rem; font-weight:400; margin-bottom:.5rem; }
-  .closing p { font-size:.92rem; opacity:.92; max-width:56ch; margin:0 auto 1.1rem; }
-  .closing .cta-row { display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap; }
-  .closing .cta { background:var(--sand); color:var(--forest); text-decoration:none; font-weight:600; font-size:.85rem; padding:.6rem 1.1rem; border-radius:8px; }
-  .closing .cta.ghost { background:transparent; color:var(--sand); border:1px solid rgba(255,255,255,.4); }
+  /* vote */
+  .vote { background:var(--cream); border:1px solid var(--mist); border-left:4px solid var(--terracotta); border-radius:12px; padding:1.3rem 1.4rem; margin-top:2.2rem; }
+  .vote h2 { font-family:'DM Serif Display',serif; font-size:1.3rem; font-weight:400; color:var(--forest); margin-bottom:.25rem; }
+  .vote .vsub { font-size:.85rem; color:#888; margin-bottom:.9rem; }
+  .row { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:.5rem; }
+  .pill { border:1px solid var(--mist); background:var(--sand); border-radius:999px; padding:.45rem 1rem; font-family:'Inter',sans-serif; font-size:.84rem; font-weight:600; color:#777; cursor:pointer; }
+  .pill.active { background:var(--forest); border-color:var(--forest); color:var(--sand); }
+  .vlabel { font-size:.8rem; font-weight:700; margin:.8rem 0 .4rem; }
+  .opt-pill { border:1px solid var(--mist); background:#fff; border-radius:8px; padding:.5rem .85rem; font-size:.82rem; font-weight:500; color:#555; cursor:pointer; }
+  .opt-pill.chosen { background:var(--terracotta); border-color:var(--terracotta); color:#fff; }
+  .vhint { font-size:.79rem; color:#999; margin-top:.5rem; }
+  .actions { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1rem; align-items:center; }
+  .btn { border:none; border-radius:8px; padding:.6rem 1.1rem; font-family:'Inter',sans-serif; font-size:.84rem; font-weight:600; cursor:pointer; text-decoration:none; display:inline-block; text-align:center; }
+  .btn.primary { background:var(--forest); color:var(--sand); }
+  .btn.secondary { background:var(--mist); color:var(--forest); }
+  .status { font-size:.8rem; color:var(--forest); font-weight:600; }
 
   .foot { text-align:center; padding:2rem 1rem; font-size:.8rem; color:#aaa; }
 
   @media (max-width:560px){
-    .fixed-strip { grid-template-columns:1fr; }
-    .trip-facts { grid-template-columns:1fr; }
-    .route-summary { grid-template-columns:1fr; }
-    .ext-toggle { flex-direction:column; align-items:flex-start; }
-    #trip-map { height:420px; }
-    .vq-options { flex-direction:column; }
-    .vq-opt { width:100%; text-align:center; }
-    .vote-actions { flex-direction:column; align-items:stretch; }
-    .vote-btn { width:100%; }
-    .trip-actions { flex-direction:column; align-items:stretch; }
-    .pick-btn, .trip-link { width:100%; text-align:center; }
+    .pt { grid-template-columns:1fr; }
+    .gt-row { flex-direction:column; gap:.15rem; }
+    .gt-who { flex-basis:auto; }
+    .row { }
+    .actions { flex-direction:column; align-items:stretch; }
+    .btn { width:100%; }
   }
 </style>
 </head>
 <body>
 
-<div class="topnav">
-  <a href="#top">Let's Get Together</a>
-  <a href="#compare">Compare Trips</a>
-  <a href="#map">Route Map</a>
-  <a href="#vote">Vote</a>
-</div>
-
-<div class="hero" id="top">
-  <div class="kicker">September 2026 Trip Planner</div>
-  <h1>Let's Get Together</h1>
-  <div class="subtitle">The wedding brings us into the region. The rest of the trip is ours to choose together.</div>
+<div class="hero">
+  <div class="kicker">September 2026</div>
+  <h1>The Atlanta Trip</h1>
+  <div class="subtitle">One trip, a few ways to do it. Pick the version that sounds best.</div>
 </div>
 
 <div class="wrap">
 
-  <div class="intro-card">
-    <div class="eyebrow">How this works</div>
-    <p>We already have flights into Atlanta and a wedding in Tuckasegee, so we'd love to turn the trip into a chance to spend real time with Sam and Jen too. The wedding and the getaway are two completely separate parts of the trip involving two different groups of friends.</p>
-    <p>Kaylee and Ben's wedding is fixed. Everything around it is still flexible. Instead of squeezing every destination into one itinerary, we're choosing between a few complete versions of the trip. Pick your name, compare the options, and vote for the one that sounds most enjoyable.</p>
-    <p style="font-size:.82rem;color:#999;margin-top:.5rem;">Your votes save on your own device — it's each-person-picks-and-shares, not a live tally.</p>
+  <p class="intro">We're flying into <strong>Atlanta</strong> for Kaylee &amp; Ben's wedding, and we'd love to turn it into real time with <strong>Sam &amp; Jen</strong> too. The wedding is its own thing — everything around it is flexible. Below are four ways the trip could go. Flip the tabs to see how each one works and how everyone gets there.</p>
+
+  <div class="facts">
+    <div class="fact"><b>Flights</b>Fly into Atlanta Fri Sep 4, 10:00 AM · home Tue Sep 8, 6:10 PM (movable to Wed).</div>
+    <div class="fact"><b>Wedding</b>Kaylee &amp; Ben · Sat Sep 5, 3:14 PM · Tuckasegee, NC.</div>
   </div>
 
-  <!-- WHAT'S FIXED -->
-  <div class="fixed-strip">
-    <div class="fixed-card flights">
-      <div class="fc-badge">Confirmed · Flights</div>
-      <h3>Atlanta is the hub</h3>
-      <p>Arrive Fri Sep 4 at 10:00 AM. Current flight home is Tue Sep 8 at 6:10 PM.</p>
-    </div>
-    <div class="fixed-card wedding">
-      <div class="fc-badge">Confirmed · Wedding</div>
-      <h3>Saturday in Tuckasegee</h3>
-      <p>Kaylee &amp; Ben's wedding is Sat Sep 5 at 3:14 PM.</p>
-    </div>
-    <div class="fixed-card flex">
-      <div class="fc-badge">Flexible</div>
-      <h3>The getaway is open</h3>
-      <p>Where we meet, where we stay, and whether we extend through Wednesday are still up for discussion.</p>
-    </div>
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="A" onclick="showTab('A')">A · Western NC</button>
+    <button class="tab-btn" data-tab="B" onclick="showTab('B')">B · Meet in Atlanta</button>
+    <button class="tab-btn" data-tab="C" onclick="showTab('C')">C · North Georgia</button>
+    <button class="tab-btn" data-tab="D" onclick="showTab('D')">D · Around Atlanta</button>
   </div>
-
-  <!-- VOTER SELECTOR -->
-  <div class="voter-bar" id="vote-top">
-    <div class="vb-label">Who's voting?</div>
-    <div class="voter-row" id="voter-row">
-      <button class="voter-pill" data-voter="Lance" onclick="setVoter('Lance')">Lance</button>
-      <button class="voter-pill" data-voter="Megan" onclick="setVoter('Megan')">Megan</button>
-      <button class="voter-pill" data-voter="Sam" onclick="setVoter('Sam')">Sam</button>
-      <button class="voter-pill" data-voter="Jen" onclick="setVoter('Jen')">Jen</button>
-    </div>
-    <div class="voter-hint" id="voter-hint">Pick your name to unlock voting and save your choices.</div>
-  </div>
-
-  <!-- EXTENSION TOGGLE -->
-  <div class="ext-toggle">
-    <div>
-      <div class="et-label">Keep Tuesday, or extend to Wednesday?</div>
-      <div class="et-sub">Changes the schedule notes inside each option below.</div>
-    </div>
-    <div class="ext-buttons">
-      <button class="ext-btn active" data-ext="tuesday" onclick="setExtend('tuesday')">Tuesday version</button>
-      <button class="ext-btn" data-ext="wednesday" onclick="setExtend('wednesday')">Extend to Wednesday</button>
-    </div>
-  </div>
-
-  <!-- TRIP OPTIONS -->
-  <h2 class="section-label" id="compare">Choose the Kind of Trip</h2>
-  <p class="section-sub">Each option below is a complete version of the trip — not one more activity added to the same overloaded itinerary.</p>
 
   <!-- OPTION A -->
-  <div class="trip opt-a" data-opt="A">
-    <div class="trip-head">
-      <div>
-        <div class="trip-optlabel">Option A</div>
-        <div class="trip-title">Western NC Getaway</div>
-        <div class="trip-theme">Most Blue Ridge time · waterfalls, cabins &amp; the A.T.</div>
-        <div class="trip-when">Fri Sep 4 – Tue Sep 8 (or Wed Sep 9)</div>
-      </div>
-      <span class="badge vote">Vote Needed</span>
+  <div class="panel active" data-tab="A">
+    <div class="opt-head">
+      <div class="opt-theme">Most mountain time</div>
+      <div class="opt-title">Western North Carolina</div>
+      <p class="opt-idea">Head straight up to the wedding region and stay in the mountains around Cashiers and Sylva. Sam &amp; Jen join after the wedding for a couple of easy days — a waterfall, a scenic drive, a small town, and a cabin.</p>
     </div>
-    <div class="trip-body">
-      <p class="trip-summary">Fly into Atlanta, drive up for the wedding, then settle into the mountains around Cashiers and Sylva with Sam &amp; Jen. The most time in the Blue Ridge, the best waterfalls and Appalachian Trail access, and a real cabin feel.</p>
-      <div class="trip-facts">
-        <div class="tf"><strong>Sam &amp; Jen meet</strong>Tuckasegee / Cashiers / Sylva / Bear Creek Lake, after the wedding</div>
-        <div class="tf"><strong>Route shape</strong>Atlanta → Tuckasegee wedding → Cashiers/Highlands/Sylva → Atlanta</div>
-        <div class="tf"><strong>Best for</strong>Most mountain time, best falls + trail, least wedding disruption</div>
-        <div class="tf"><strong>Main tradeoff</strong>Tuesday drive back to Atlanta needs careful timing</div>
-      </div>
-      <div class="ext-note" data-ext="tuesday">Tuesday version: one full shared getaway day plus a bit of Tuesday morning, then an early departure to make the 6:10 PM flight.</div>
-      <div class="ext-note" data-ext="wednesday" style="display:none;">Wednesday version: two true getaway days with Sam &amp; Jen and a relaxed Wednesday drive back — far less rushed, and the best way to fit a full A.T. hike.</div>
-      <div class="trip-actions">
-        <button class="pick-btn" data-opt="A" onclick="pickOption('A')">This is my pick</button>
-        <a class="trip-link" href="blue-ridge.html">See the full Option A itinerary &rarr;</a>
-      </div>
+    <div class="gt">
+      <h3>How everyone gets there</h3>
+      <div class="gt-row"><div class="gt-who">Lance &amp; Megan</div><div class="gt-how">Fly TPA → ATL (nonstop, ~1.5 hrs), grab a rental, drive up to the mountains. <span class="drive">ATL → Tuckasegee ~2.5–3 hrs</span></div></div>
+      <div class="gt-row"><div class="gt-who">Sam &amp; Jen</div><div class="gt-how">Drive down from Lexington and meet after the wedding. <span class="drive">Lexington → Cashiers ~5 hrs</span></div></div>
+    </div>
+    <div class="shape">
+      <h3>The plan, briefly</h3>
+      <div class="shape-row"><div class="shape-day">Fri</div><div>Fly in, drive up, settle into wedding-area lodging.</div></div>
+      <div class="shape-row"><div class="shape-day">Sat</div><div>Wedding at 3:14 (just Lance &amp; Megan).</div></div>
+      <div class="shape-row"><div class="shape-day">Sun</div><div>Sam &amp; Jen arrive — waterfall, scenic drive, town, cabin dinner.</div></div>
+      <div class="shape-row"><div class="shape-day">Mon</div><div>A hike or an easy mountain day together.</div></div>
+      <div class="shape-row"><div class="shape-day">Tue</div><div>Drive back to ATL, fly home (or add Wednesday).</div></div>
+    </div>
+    <div class="pt">
+      <div class="pt-card"><b>Best for</b>The most Blue Ridge time — waterfalls, trails, cabin feel.</div>
+      <div class="pt-card"><b>Tradeoff</b>Tuesday drive back to ATL is a bit tight; Wednesday makes it easy.</div>
     </div>
   </div>
 
   <!-- OPTION B -->
-  <div class="trip opt-b" data-opt="B">
-    <div class="trip-head">
-      <div>
-        <div class="trip-optlabel">Option B</div>
-        <div class="trip-title">Meet in Atlanta &amp; Road-Trip Together</div>
-        <div class="trip-theme">Everyone starts together · shared miles</div>
-        <div class="trip-when">Fri Sep 4 – Tue Sep 8 (or Wed Sep 9)</div>
-      </div>
-      <span class="badge vote">Vote Needed</span>
+  <div class="panel" data-tab="B">
+    <div class="opt-head">
+      <div class="opt-theme">Everyone starts together</div>
+      <div class="opt-title">Meet in Atlanta &amp; Road-Trip</div>
+      <p class="opt-idea">Sam &amp; Jen drive to Atlanta and we all start together on Friday, then share the drive toward the mountains. Lance &amp; Megan slip away for the wedding while Sam &amp; Jen have their own day, and everyone reconnects after.</p>
     </div>
-    <div class="trip-body">
-      <p class="trip-summary">Sam &amp; Jen drive down from Lexington to Atlanta and we all start together on Friday, then share the road toward the wedding region and a mountain getaway. Lance &amp; Megan slip away for the wedding on Saturday while Sam &amp; Jen have their own day; everyone reconnects after.</p>
-      <div class="trip-facts">
-        <div class="tf"><strong>Sam &amp; Jen meet</strong>Atlanta on Friday — everyone together from the start</div>
-        <div class="tf"><strong>Route shape</strong>Atlanta reunion → wedding region → mountain getaway → Atlanta</div>
-        <div class="tf"><strong>Best for</strong>Shared road-trip time, a Friday in Atlanta, easy coordination, maybe one rental</div>
-        <div class="tf"><strong>Main tradeoff</strong>Sam &amp; Jen drive farther south then back north; they need their own plan during the wedding</div>
-      </div>
-      <div class="ext-note" data-ext="tuesday">Tuesday version: tighter, with the shared getaway compressed before an early Tuesday return to Atlanta.</div>
-      <div class="ext-note" data-ext="wednesday" style="display:none;">Wednesday version: an extra day means the shared road-trip stretch actually breathes — a slower reunion and an unhurried return.</div>
-      <div class="trip-actions">
-        <button class="pick-btn" data-opt="B" onclick="pickOption('B')">This is my pick</button>
-      </div>
+    <div class="gt">
+      <h3>How everyone gets there</h3>
+      <div class="gt-row"><div class="gt-who">Lance &amp; Megan</div><div class="gt-how">Fly TPA → ATL (nonstop, ~1.5 hrs) and meet up in Atlanta Friday.</div></div>
+      <div class="gt-row"><div class="gt-who">Sam &amp; Jen</div><div class="gt-how">Drive to Atlanta to meet everyone Friday. <span class="drive">Lexington → Atlanta ~6 hrs</span></div></div>
+      <div class="gt-row"><div class="gt-who">Together</div><div class="gt-how">Then everyone drives north toward the wedding region. <span class="drive">ATL → mountains ~2.5–3 hrs</span></div></div>
+    </div>
+    <div class="shape">
+      <h3>The plan, briefly</h3>
+      <div class="shape-row"><div class="shape-day">Fri</div><div>Everyone meets in Atlanta — a night in the city together.</div></div>
+      <div class="shape-row"><div class="shape-day">Sat</div><div>Drive up; Lance &amp; Megan to the wedding, Sam &amp; Jen their own day.</div></div>
+      <div class="shape-row"><div class="shape-day">Sun–Mon</div><div>Shared mountain days together.</div></div>
+      <div class="shape-row"><div class="shape-day">Tue</div><div>Back to ATL; fly home / they drive home.</div></div>
+    </div>
+    <div class="pt">
+      <div class="pt-card"><b>Best for</b>Starting together, shared road-trip time, an easy Friday in Atlanta.</div>
+      <div class="pt-card"><b>Tradeoff</b>Sam &amp; Jen drive farther, and need their own plan wedding day.</div>
     </div>
   </div>
 
   <!-- OPTION C -->
-  <div class="trip opt-c" data-opt="C">
-    <div class="trip-head">
-      <div>
-        <div class="trip-optlabel">Option C</div>
-        <div class="trip-title">North Georgia Mountain Getaway</div>
-        <div class="trip-theme">Closer to the airport · mountains without the long haul</div>
-        <div class="trip-when">Fri Sep 4 – Tue Sep 8 (or Wed Sep 9)</div>
-      </div>
-      <span class="badge vote">Vote Needed</span>
+  <div class="panel" data-tab="C">
+    <div class="opt-head">
+      <div class="opt-theme">Closer to the airport</div>
+      <div class="opt-title">North Georgia Mountains</div>
+      <p class="opt-idea">Base the getaway in the North Georgia mountains — Clayton, Helen, Blue Ridge, Amicalola Falls — much closer to Atlanta, with a separate drive up to the wedding for the day.</p>
     </div>
-    <div class="trip-body">
-      <p class="trip-summary">Base the getaway in the North Georgia mountains — Clayton, Tallulah Gorge, Helen, Dahlonega, Blue Ridge, Amicalola Falls — with a separate drive up to the wedding. Mountain scenery, waterfalls, cabins, and A.T. access near Amicalola, all closer to Atlanta.</p>
-      <div class="trip-facts">
-        <div class="tf"><strong>Sam &amp; Jen meet</strong>Atlanta or a North Georgia cabin</div>
-        <div class="tf"><strong>Route shape</strong>Atlanta → North Georgia → Tuckasegee wedding → North Georgia → Atlanta</div>
-        <div class="tf"><strong>Best for</strong>Staying near ATL, mountain scenery, falls + cabins, easier return</div>
-        <div class="tf"><strong>Main tradeoff</strong>Wedding-day drive could be long — worth verifying the route first</div>
-      </div>
-      <div class="ext-note" data-ext="tuesday">Tuesday version: North Georgia keeps the return short, so an early Tuesday flight is very doable.</div>
-      <div class="ext-note" data-ext="wednesday" style="display:none;">Wednesday version: an extra North Georgia day (another gorge, town, or trail) with a short, low-stress Wednesday hop back to ATL.</div>
-      <div class="trip-actions">
-        <button class="pick-btn" data-opt="C" onclick="pickOption('C')">This is my pick</button>
-      </div>
+    <div class="gt">
+      <h3>How everyone gets there</h3>
+      <div class="gt-row"><div class="gt-who">Lance &amp; Megan</div><div class="gt-how">Fly TPA → ATL (nonstop, ~1.5 hrs), rental, short drive to the NG mountains. <span class="drive">ATL → North Georgia ~1.5–2 hrs</span></div></div>
+      <div class="gt-row"><div class="gt-who">Sam &amp; Jen</div><div class="gt-how">Drive down from Lexington to the same area. <span class="drive">Lexington → North Georgia ~5 hrs</span></div></div>
+      <div class="gt-row"><div class="gt-who">Wedding day</div><div class="gt-how">Lance &amp; Megan drive over to Tuckasegee and back. <span class="drive">NG → Tuckasegee ~2 hrs each way*</span></div></div>
+    </div>
+    <div class="shape">
+      <h3>The plan, briefly</h3>
+      <div class="shape-row"><div class="shape-day">Fri</div><div>Fly in, short drive to a North Georgia cabin.</div></div>
+      <div class="shape-row"><div class="shape-day">Sat</div><div>Lance &amp; Megan drive to the wedding; Sam &amp; Jen relax in NG.</div></div>
+      <div class="shape-row"><div class="shape-day">Sun–Mon</div><div>Gorges, waterfalls, and towns together.</div></div>
+      <div class="shape-row"><div class="shape-day">Tue</div><div>Short hop back to ATL, fly home.</div></div>
+    </div>
+    <div class="pt">
+      <div class="pt-card"><b>Best for</b>Staying near the airport, easy return, mountains without the long haul.</div>
+      <div class="pt-card"><b>Tradeoff</b>Wedding-day drive is longer — *worth confirming the route first.</div>
     </div>
   </div>
 
   <!-- OPTION D -->
-  <div class="trip opt-d" data-opt="D">
-    <div class="trip-head">
-      <div>
-        <div class="trip-optlabel">Option D</div>
-        <div class="trip-title">Atlanta &amp; a Regional Weekend</div>
-        <div class="trip-theme">City reunion · simplest logistics</div>
-        <div class="trip-when">Fri Sep 4 – Tue Sep 8 (or Wed Sep 9)</div>
-      </div>
-      <span class="badge vote">Vote Needed</span>
+  <div class="panel" data-tab="D">
+    <div class="opt-head">
+      <div class="opt-theme">Simplest logistics</div>
+      <div class="opt-title">Around Atlanta</div>
+      <p class="opt-idea">Keep Sam &amp; Jen time in and around Atlanta — food, walkable neighborhoods, and one easy day trip. Lance &amp; Megan make a separate overnight run to the wedding and come back.</p>
     </div>
-    <div class="trip-body">
-      <p class="trip-summary">Keep Sam &amp; Jen time in Atlanta — Ponce City Market, the BeltLine, Piedmont Park, the Georgia Aquarium, the MLK National Historical Park, Decatur dining — plus one regional day trip. Lance &amp; Megan travel separately to the wedding and rejoin after.</p>
-      <div class="trip-facts">
-        <div class="tf"><strong>Sam &amp; Jen meet</strong>Atlanta</div>
-        <div class="tf"><strong>Route shape</strong>Atlanta base + a separate mountain excursion for the wedding</div>
-        <div class="tf"><strong>Best for</strong>Simplest airport logistics, most food &amp; indoor options, weather-independent, a clear split</div>
-        <div class="tf"><strong>Main tradeoff</strong>A big wedding side trip, and the least Blue Ridge / A.T. time</div>
-      </div>
-      <div class="ext-note" data-ext="tuesday">Tuesday version: an easy city weekend with no return-drive stress at all.</div>
-      <div class="ext-note" data-ext="wednesday" style="display:none;">Wednesday version: one more Atlanta day (a museum, a neighborhood, another great meal) before flying out Wednesday.</div>
-      <div class="trip-actions">
-        <button class="pick-btn" data-opt="D" onclick="pickOption('D')">This is my pick</button>
-      </div>
+    <div class="gt">
+      <h3>How everyone gets there</h3>
+      <div class="gt-row"><div class="gt-who">Lance &amp; Megan</div><div class="gt-how">Fly TPA → ATL (nonstop, ~1.5 hrs). Wedding is a separate drive up and back. <span class="drive">ATL → Tuckasegee ~2.5–3 hrs each way</span></div></div>
+      <div class="gt-row"><div class="gt-who">Sam &amp; Jen</div><div class="gt-how">Drive down to Atlanta. <span class="drive">Lexington → Atlanta ~6 hrs</span></div></div>
+    </div>
+    <div class="shape">
+      <h3>The plan, briefly</h3>
+      <div class="shape-row"><div class="shape-day">Fri</div><div>Everyone in Atlanta — dinner out.</div></div>
+      <div class="shape-row"><div class="shape-day">Sat</div><div>Lance &amp; Megan up to the wedding (overnight); Sam &amp; Jen explore the city.</div></div>
+      <div class="shape-row"><div class="shape-day">Sun–Mon</div><div>Back together in Atlanta — food, neighborhoods, one day trip.</div></div>
+      <div class="shape-row"><div class="shape-day">Tue</div><div>Easy — already at the airport.</div></div>
+    </div>
+    <div class="pt">
+      <div class="pt-card"><b>Best for</b>Simplest airport logistics, lots of food, weather-proof.</div>
+      <div class="pt-card"><b>Tradeoff</b>A big wedding side trip, and the least mountain time.</div>
     </div>
   </div>
 
-  <!-- ROUTE MAP -->
-  <h2 class="section-label" id="map">See How the Options Move</h2>
-  <p class="section-sub">Atlanta is the airport hub; Tuckasegee is the wedding; Lexington is where Sam &amp; Jen start. Toggle a route to see its shape and how it compares.</p>
-  <div class="route-toggles">
-    <button class="rt-btn on a" data-opt="A" onclick="toggleRoute('A')">Western NC</button>
-    <button class="rt-btn on b" data-opt="B" onclick="toggleRoute('B')">Atlanta road-trip</button>
-    <button class="rt-btn on c" data-opt="C" onclick="toggleRoute('C')">North Georgia</button>
-    <button class="rt-btn on d" data-opt="D" onclick="toggleRoute('D')">Atlanta &amp; regional</button>
-  </div>
-  <div class="map-wrap"><div id="trip-map"></div></div>
-  <div class="route-summary" id="route-summary">
-    <div class="rs-card"><div class="rs-label">Where everyone meets</div><div class="rs-val" id="rs-meet">Toggle a single route for a focused summary.</div></div>
-    <div class="rs-card"><div class="rs-label">Primary overnight base</div><div class="rs-val" id="rs-base">—</div></div>
-    <div class="rs-card"><div class="rs-label">Wedding travel impact</div><div class="rs-val" id="rs-wed">—</div></div>
-    <div class="rs-card"><div class="rs-label">Return-to-airport difficulty</div><div class="rs-val" id="rs-return">—</div></div>
-  </div>
-
-  <!-- VOTES -->
-  <div class="vote-card" id="vote">
-    <h2>Cast Your Vote</h2>
-    <p class="vc-sub">Pick your name up top first, then vote. Copy or email your picks to Lance when you're done.</p>
-
-    <div class="vote-q" data-q="primary">
-      <div class="vq-label"><span class="tier">Primary</span>Which complete trip sounds best?</div>
-      <div class="vq-options">
-        <button class="vq-opt" data-val="A" onclick="pick('primary','A')">A · Western NC</button>
-        <button class="vq-opt" data-val="B" onclick="pick('primary','B')">B · Atlanta road-trip</button>
-        <button class="vq-opt" data-val="C" onclick="pick('primary','C')">C · North Georgia</button>
-        <button class="vq-opt" data-val="D" onclick="pick('primary','D')">D · Atlanta &amp; regional</button>
-      </div>
+  <!-- VOTE -->
+  <div class="vote">
+    <h2>Which one sounds best?</h2>
+    <p class="vsub">Tap your name, pick an option, and send it to Lance.</p>
+    <div class="row" id="voter-row">
+      <button class="pill" data-voter="Lance" onclick="setVoter('Lance')">Lance</button>
+      <button class="pill" data-voter="Megan" onclick="setVoter('Megan')">Megan</button>
+      <button class="pill" data-voter="Sam" onclick="setVoter('Sam')">Sam</button>
+      <button class="pill" data-voter="Jen" onclick="setVoter('Jen')">Jen</button>
     </div>
-
-    <div class="vote-q" data-q="schedule">
-      <div class="vq-label"><span class="tier">Schedule</span>Keep the Tuesday flight or extend through Wednesday?</div>
-      <div class="vq-options">
-        <button class="vq-opt" data-val="Keep Tuesday" onclick="pick('schedule','Keep Tuesday')">Keep Tuesday</button>
-        <button class="vq-opt" data-val="Extend to Wednesday" onclick="pick('schedule','Extend to Wednesday')">Extend to Wednesday</button>
-        <button class="vq-opt" data-val="Either works" onclick="pick('schedule','Either works')">Either works</button>
-      </div>
+    <div class="vlabel">Your pick</div>
+    <div class="row" id="opt-row">
+      <button class="opt-pill" data-val="A" onclick="pickOpt('A')">A · Western NC</button>
+      <button class="opt-pill" data-val="B" onclick="pickOpt('B')">B · Meet in Atlanta</button>
+      <button class="opt-pill" data-val="C" onclick="pickOpt('C')">C · North Georgia</button>
+      <button class="opt-pill" data-val="D" onclick="pickOpt('D')">D · Around Atlanta</button>
     </div>
-
-    <div class="vote-q" data-q="meeting">
-      <div class="vq-label"><span class="tier">Meeting</span>Where would you rather meet?</div>
-      <div class="vq-options">
-        <button class="vq-opt" data-val="Atlanta" onclick="pick('meeting','Atlanta')">Atlanta</button>
-        <button class="vq-opt" data-val="Western NC" onclick="pick('meeting','Western NC')">Western NC</button>
-        <button class="vq-opt" data-val="North Georgia" onclick="pick('meeting','North Georgia')">North Georgia</button>
-        <button class="vq-opt" data-val="No preference" onclick="pick('meeting','No preference')">No preference</button>
-      </div>
-    </div>
-
-    <div class="vote-q" data-q="style">
-      <div class="vq-label"><span class="tier">Trip style</span>What kind of time together?</div>
-      <div class="vq-options">
-        <button class="vq-opt" data-val="Mountains & hiking" onclick="pick('style','Mountains & hiking')">Mountains &amp; hiking</button>
-        <button class="vq-opt" data-val="Cabin & relaxing" onclick="pick('style','Cabin & relaxing')">Cabin &amp; relaxing</button>
-        <button class="vq-opt" data-val="Atlanta food & exploring" onclick="pick('style','Atlanta food & exploring')">Atlanta food &amp; exploring</button>
-        <button class="vq-opt" data-val="Balanced mix" onclick="pick('style','Balanced mix')">Balanced mix</button>
-      </div>
-    </div>
-
-    <div class="vote-q" data-q="activity">
-      <div class="vq-label"><span class="tier">Activity</span>Your one must-have?</div>
-      <div class="vq-options">
-        <button class="vq-opt" data-val="Waterfall" onclick="pick('activity','Waterfall')">Waterfall</button>
-        <button class="vq-opt" data-val="Scenic drive & overlooks" onclick="pick('activity','Scenic drive & overlooks')">Scenic drive &amp; overlooks</button>
-        <button class="vq-opt" data-val="AT hike" onclick="pick('activity','AT hike')">A.T. hike</button>
-        <button class="vq-opt" data-val="Atlanta day" onclick="pick('activity','Atlanta day')">Atlanta day</button>
-        <button class="vq-opt" data-val="Mostly downtime" onclick="pick('activity','Mostly downtime')">Mostly downtime</button>
-      </div>
-    </div>
-
-    <div class="vote-actions">
-      <button class="vote-btn primary" onclick="copyPicks()">Copy my picks</button>
-      <a class="vote-btn secondary" href="#" onclick="return emailPicks()">Email to Lance</a>
-      <span class="vote-status" id="vote-status"></span>
-    </div>
-    <p class="vote-note">Each person votes on their own device and shares with Lance — there's no live shared count (that would need a server, which this board intentionally avoids).</p>
-  </div>
-
-  <!-- CLOSING -->
-  <div class="closing">
-    <h2>The Point Is to Be Together</h2>
-    <p>Atlanta, North Georgia, or the Blue Ridge could all work. The destination matters, but the real goal is simpler: use the trip we already have as a reason to stop putting off time together. Pick the version that sounds best, tell us what matters most, and we'll build the final itinerary from there.</p>
-    <div class="cta-row">
-      <a class="cta" href="#vote">Cast My Vote</a>
-      <a class="cta ghost" href="#map">Compare the Routes</a>
-      <a class="cta ghost" href="blue-ridge.html">Open the Western NC Option</a>
+    <div class="vhint" id="vhint">Pick your name to start.</div>
+    <div class="actions">
+      <button class="btn primary" onclick="copyPick()">Copy my pick</button>
+      <a class="btn secondary" href="#" onclick="return emailPick()">Email to Lance</a>
+      <span class="status" id="status"></span>
     </div>
   </div>
 
 </div>
 
-<div class="foot">Let's Get Together · September 2026 · Atlanta hub · wedding in Tuckasegee · getaway TBD together</div>
+<div class="foot">The Atlanta Trip · September 2026 · wedding in Tuckasegee · getaway TBD together</div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-  // ================= VOTING =================
-  var VOTE_KEY = 'letsgettogether_votes_v1';
-  var VOTER_KEY = 'tp_current_voter';
-  var currentVoter = null;
+  var VOTE_KEY='atltrip_pick_v1', VOTER_KEY='tp_current_voter', currentVoter=null;
+  var OPT_NAMES={A:'A · Western NC',B:'B · Meet in Atlanta',C:'C · North Georgia',D:'D · Around Atlanta'};
 
-  var QLABELS = { primary:'Best trip', schedule:'Schedule', meeting:'Meeting point', style:'Trip style', activity:'Must-have' };
-  var OPT_NAMES = { A:'A · Western NC', B:'B · Atlanta road-trip', C:'C · North Georgia', D:'D · Atlanta & regional' };
+  function showTab(t){
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.tab===t); });
+    document.querySelectorAll('.panel').forEach(function(p){ p.classList.toggle('active', p.dataset.tab===t); });
+  }
 
-  function loadVotes(){ try { return JSON.parse(localStorage.getItem(VOTE_KEY)) || {}; } catch(e){ return {}; } }
+  function loadVotes(){ try { return JSON.parse(localStorage.getItem(VOTE_KEY))||{}; } catch(e){ return {}; } }
   function saveVotes(v){ try { localStorage.setItem(VOTE_KEY, JSON.stringify(v)); } catch(e){} }
 
   function setVoter(name){
-    currentVoter = name;
+    currentVoter=name;
     try { localStorage.setItem(VOTER_KEY, name); } catch(e){}
-    document.querySelectorAll('.voter-pill').forEach(function(b){ b.classList.toggle('active', b.dataset.voter === name); });
-    document.getElementById('voter-hint').textContent = 'Hi ' + name + ' — make your picks, then copy or email them to Lance.';
-    document.querySelectorAll('.vote-q').forEach(function(q){ q.classList.add('enabled'); });
-    var mine = loadVotes()[name] || {};
-    // highlight vote options
-    document.querySelectorAll('.vote-q').forEach(function(q){
-      var key = q.dataset.q;
-      q.querySelectorAll('.vq-opt').forEach(function(o){ o.classList.toggle('chosen', mine[key] === o.getAttribute('data-val')); });
-    });
-    // highlight chosen option card + pick buttons
-    document.querySelectorAll('.trip').forEach(function(t){ t.classList.toggle('chosen', mine.primary === t.dataset.opt); });
-    document.querySelectorAll('.pick-btn').forEach(function(b){ b.classList.toggle('picked', mine.primary === b.dataset.opt); });
-    // restore extend view preference
-    setExtend(mine.view || 'tuesday', true);
-    document.getElementById('vote-status').textContent = '';
+    document.querySelectorAll('.pill').forEach(function(b){ b.classList.toggle('active', b.dataset.voter===name); });
+    document.getElementById('vhint').textContent='Hi '+name+' — pick an option, then copy or email it.';
+    var mine=loadVotes()[name];
+    document.querySelectorAll('.opt-pill').forEach(function(o){ o.classList.toggle('chosen', mine===o.getAttribute('data-val')); });
+    document.getElementById('status').textContent='';
   }
-
-  function pick(qkey, val){
-    if (!currentVoter) { flashHint(); return; }
-    var votes = loadVotes();
-    votes[currentVoter] = votes[currentVoter] || {};
-    votes[currentVoter][qkey] = val;
-    saveVotes(votes);
-    var q = document.querySelector('.vote-q[data-q="' + qkey + '"]');
-    if (q) q.querySelectorAll('.vq-opt').forEach(function(o){ o.classList.toggle('chosen', o.getAttribute('data-val') === val); });
-    if (qkey === 'primary') syncPrimary(val);
-    setStatus('Saved on this device.');
+  function pickOpt(val){
+    if(!currentVoter){ document.getElementById('vhint').textContent='First, tap your name.'; return; }
+    var v=loadVotes(); v[currentVoter]=val; saveVotes(v);
+    document.querySelectorAll('.opt-pill').forEach(function(o){ o.classList.toggle('chosen', o.getAttribute('data-val')===val); });
+    document.getElementById('status').textContent='Saved on this device.';
   }
-
-  function pickOption(opt){
-    if (!currentVoter) { flashHint(); return; }
-    pick('primary', opt);
+  function pickText(){
+    var mine=loadVotes()[currentVoter];
+    return currentVoter+"'s pick for the Atlanta trip: "+(mine?(OPT_NAMES[mine]||mine):'(no pick yet)');
   }
-
-  function syncPrimary(opt){
-    document.querySelectorAll('.trip').forEach(function(t){ t.classList.toggle('chosen', t.dataset.opt === opt); });
-    document.querySelectorAll('.pick-btn').forEach(function(b){ b.classList.toggle('picked', b.dataset.opt === opt); });
-    var q = document.querySelector('.vote-q[data-q="primary"]');
-    if (q) q.querySelectorAll('.vq-opt').forEach(function(o){ o.classList.toggle('chosen', o.getAttribute('data-val') === opt); });
+  function copyPick(){
+    if(!currentVoter){ document.getElementById('vhint').textContent='First, tap your name.'; return; }
+    var text=pickText();
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ document.getElementById('status').textContent='Copied — paste it to Lance!'; }, function(){ fb(text); });
+    } else { fb(text); }
   }
-
-  function setExtend(mode, silent){
-    document.querySelectorAll('.ext-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.ext === mode); });
-    document.querySelectorAll('.ext-note').forEach(function(n){ n.style.display = (n.dataset.ext === mode) ? '' : 'none'; });
-    if (!silent && currentVoter) {
-      var votes = loadVotes();
-      votes[currentVoter] = votes[currentVoter] || {};
-      votes[currentVoter].view = mode;
-      saveVotes(votes);
-    }
-  }
-
-  function flashHint(){ document.getElementById('voter-hint').textContent = 'First, tap your name up top.'; }
-  function setStatus(msg){ document.getElementById('vote-status').textContent = msg; }
-
-  function myPicksText(){
-    var mine = loadVotes()[currentVoter] || {};
-    var primaryName = mine.primary ? (OPT_NAMES[mine.primary] || mine.primary) : '(no pick)';
-    return [
-      currentVoter + "'s trip picks (Sept 2026):",
-      '- Best trip: ' + primaryName,
-      '- Schedule: ' + (mine.schedule || '(no pick)'),
-      '- Meeting point: ' + (mine.meeting || '(no pick)'),
-      '- Trip style: ' + (mine.style || '(no pick)'),
-      '- Must-have: ' + (mine.activity || '(no pick)')
-    ].join('\n');
-  }
-
-  function copyPicks(){
-    if (!currentVoter) { flashHint(); return; }
-    var text = myPicksText();
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(function(){ setStatus('Copied — paste it to Lance!'); }, function(){ fallbackCopy(text); });
-    } else { fallbackCopy(text); }
-  }
-  function fallbackCopy(text){
-    var ta = document.createElement('textarea'); ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+  function fb(text){
+    var ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
     document.body.appendChild(ta); ta.focus(); ta.select();
-    try { document.execCommand('copy'); setStatus('Copied — paste it to Lance!'); }
-    catch(e){ setStatus('Copy not supported — long-press to select.'); }
+    try { document.execCommand('copy'); document.getElementById('status').textContent='Copied — paste it to Lance!'; }
+    catch(e){ document.getElementById('status').textContent='Copy not supported — long-press to select.'; }
     document.body.removeChild(ta);
   }
-  function emailPicks(){
-    if (!currentVoter) { flashHint(); return false; }
-    var subj = encodeURIComponent('Trip picks - ' + currentVoter);
-    var body = encodeURIComponent(myPicksText());
-    window.location.href = 'mailto:lance.arnold@gmail.com?subject=' + subj + '&body=' + body;
+  function emailPick(){
+    if(!currentVoter){ document.getElementById('vhint').textContent='First, tap your name.'; return false; }
+    window.location.href='mailto:lance.arnold@gmail.com?subject='+encodeURIComponent('Atlanta trip pick - '+currentVoter)+'&body='+encodeURIComponent(pickText());
     return false;
   }
-
-  // ================= MAP =================
-  var PT = {
-    atl:[33.6407,-84.4277], atlCity:[33.755,-84.39], tuck:[35.2884,-83.1852],
-    cashiers:[35.1015,-83.0985], sylva:[35.3737,-83.2254], bearlake:[35.20,-83.14],
-    lex:[38.0406,-84.5037], clayton:[34.8781,-83.4013], tallulah:[34.7398,-83.3924],
-    helen:[34.7010,-83.7260], dahlonega:[34.5323,-83.9849], blueridgega:[34.8687,-84.3241],
-    amicalola:[34.5590,-84.2483]
-  };
-  var ROUTES = {
-    A: { color:'#C7654A', paths:[[PT.atl,PT.tuck,PT.cashiers,PT.sylva,PT.cashiers,PT.atl]], dashed:[[PT.lex,PT.cashiers]] },
-    B: { color:'#C79A4A', paths:[[PT.lex,PT.atlCity],[PT.atlCity,PT.tuck,PT.cashiers,PT.atl]], dashed:[] },
-    C: { color:'#2D4A3E', paths:[[PT.atl,PT.clayton,PT.tallulah,PT.helen,PT.dahlonega,PT.amicalola],[PT.clayton,PT.tuck,PT.clayton]], dashed:[] },
-    D: { color:'#2F6B7A', paths:[[PT.atl,PT.atlCity]], dashed:[[PT.atlCity,PT.tuck]] }
-  };
-  var ROUTE_INFO = {
-    A:{ meet:'Western NC (Cashiers / Sylva / Bear Creek Lake), after the wedding', base:'A mountain cabin near Tuckasegee / Cashiers', wed:'Low — you are already in the wedding region', ret:'Hardest — a real drive back to ATL on departure day' },
-    B:{ meet:'Atlanta on Friday — everyone together from the start', base:'Shifts along the route; a mountain stay after the wedding', wed:'Medium — Lance & Megan peel off for the wedding, Sam & Jen have their own day', ret:'Medium — you end the loop back toward Atlanta' },
-    C:{ meet:'Atlanta or a North Georgia cabin', base:'North Georgia (Clayton / Helen / Blue Ridge area)', wed:'Higher — a dedicated drive to Tuckasegee and back for the wedding', ret:'Easier — North Georgia keeps you close to ATL' },
-    D:{ meet:'Atlanta', base:'Atlanta', wed:'Separate — a mountain side trip just for the wedding', ret:'Easiest — you are already at the hub' }
-  };
-  var map, layers = {}, activeSummary = null;
-
-  function buildRouteLayer(key){
-    var r = ROUTES[key], grp = L.layerGroup();
-    r.paths.forEach(function(p){ L.polyline(p, {color:r.color, weight:4, opacity:.85}).addTo(grp); });
-    r.dashed.forEach(function(p){ L.polyline(p, {color:r.color, weight:3, opacity:.7, dashArray:'6,8'}).addTo(grp); });
-    return grp;
-  }
-  function updateSummary(key){
-    var info = ROUTE_INFO[key]; if(!info) return;
-    document.getElementById('rs-meet').textContent = info.meet;
-    document.getElementById('rs-base').textContent = info.base;
-    document.getElementById('rs-wed').textContent = info.wed;
-    document.getElementById('rs-return').textContent = info.ret;
-    activeSummary = key;
-  }
-  function toggleRoute(key){
-    var btn = document.querySelector('.rt-btn[data-opt="' + key + '"]');
-    var on = btn.classList.toggle('on');
-    if (on) { layers[key].addTo(map); } else { map.removeLayer(layers[key]); }
-    var onKeys = Array.from(document.querySelectorAll('.rt-btn.on')).map(function(b){ return b.dataset.opt; });
-    if (onKeys.length === 1) { updateSummary(onKeys[0]); }
-    else {
-      document.getElementById('rs-meet').textContent = onKeys.length===0 ? 'Toggle a route to see its summary.' : 'Showing multiple routes — toggle to a single one for a focused summary.';
-      document.getElementById('rs-base').textContent = '—';
-      document.getElementById('rs-wed').textContent = '—';
-      document.getElementById('rs-return').textContent = '—';
-    }
-  }
-  function initMap(){
-    if (!window.L) return;
-    map = L.map('trip-map', { scrollWheelZoom:false }).setView([34.85,-83.7], 7);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom:16, attribution:'&copy; OpenStreetMap' }).addTo(map);
-    L.marker(PT.atl).addTo(map).bindPopup('Atlanta (ATL) — airport hub');
-    L.marker(PT.tuck).addTo(map).bindPopup('Tuckasegee, NC — the wedding');
-    L.marker(PT.lex).addTo(map).bindPopup('Lexington, KY — Sam & Jen start');
-    ['A','B','C','D'].forEach(function(k){ layers[k] = buildRouteLayer(k); layers[k].addTo(map); });
-    var bounds = L.latLngBounds([PT.atl,PT.tuck,PT.lex,PT.cashiers,PT.amicalola]);
-    map.fitBounds(bounds, { padding:[30,30] });
-    document.getElementById('rs-meet').textContent = 'Showing all four routes — toggle to a single one for a focused summary.';
-  }
-
-  // ================= INIT =================
-  (function init(){
-    var saved = null; try { saved = localStorage.getItem(VOTER_KEY); } catch(e){}
-    if (saved) setVoter(saved);
-    if (window.L) initMap(); else window.addEventListener('load', initMap);
-  })();
+  (function(){ var s=null; try { s=localStorage.getItem(VOTER_KEY); } catch(e){} if(s) setVoter(s); })();
 </script>
 
 </body>

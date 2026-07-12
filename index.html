@@ -16,20 +16,30 @@
   .hero { background:var(--forest); color:var(--sand); padding:2.75rem 1.5rem 2rem; text-align:center; }
   .hero .kicker { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.18em; opacity:.7; margin-bottom:.55rem; }
   .hero h1 { font-family:'DM Serif Display',serif; font-size:clamp(2rem,6vw,2.9rem); font-weight:400; margin-bottom:.4rem; }
-  .hero .subtitle { font-size:.95rem; opacity:.85; max-width:42ch; margin:0 auto; }
+  .hero .subtitle { font-size:.95rem; opacity:.85; max-width:44ch; margin:0 auto; }
 
-  .wrap { max-width:720px; margin:0 auto; padding:0 1.25rem 3rem; }
+  .wrap { max-width:740px; margin:0 auto; padding:0 1.25rem 3rem; }
 
   .intro { font-size:.98rem; color:#4a4a4a; margin-top:1.8rem; }
   .intro strong { color:var(--forest); }
 
-  /* fixed facts — one calm line */
   .facts { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.2rem; }
   .fact { flex:1 1 220px; background:var(--cream); border:1px solid var(--mist); border-radius:10px; padding:.8rem 1rem; font-size:.85rem; }
   .fact b { display:block; font-size:.66rem; text-transform:uppercase; letter-spacing:.07em; color:var(--sage); font-weight:700; margin-bottom:.15rem; }
 
+  .section-h { font-family:'DM Serif Display',serif; font-size:1.4rem; color:var(--forest); margin-top:2.4rem; margin-bottom:.2rem; }
+  .section-s { font-size:.86rem; color:#888; margin-bottom:1rem; }
+
+  /* orientation primer */
+  .orient { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.8rem; }
+  .orient .oc { background:var(--cream); border:1px solid var(--mist); border-radius:12px; padding:1rem 1.1rem; }
+  .orient .oc .ocn { font-family:'DM Serif Display',serif; font-size:1.05rem; color:var(--forest); margin-bottom:.1rem; }
+  .orient .oc .ocd { font-size:.7rem; color:var(--trail); font-weight:600; margin-bottom:.4rem; }
+  .orient .oc p { font-size:.82rem; color:#555; }
+  .orient-note { font-size:.85rem; color:#666; background:var(--cream); border:1px dashed var(--sage); border-radius:10px; padding:.75rem 1rem; margin-top:.8rem; }
+
   /* tabs */
-  .tabs { display:flex; flex-wrap:wrap; gap:.4rem; margin-top:2rem; background:var(--mist); border-radius:12px; padding:.3rem; }
+  .tabs { display:flex; flex-wrap:wrap; gap:.4rem; margin-top:2.2rem; background:var(--mist); border-radius:12px; padding:.3rem; }
   .tab-btn { flex:1 1 auto; border:none; background:transparent; padding:.7rem .6rem; border-radius:9px; font-family:'Inter',sans-serif; font-weight:600; font-size:.83rem; color:#888; cursor:pointer; transition:all .15s ease; }
   .tab-btn.active { background:var(--cream); color:var(--forest); box-shadow:0 1px 3px rgba(0,0,0,.08); }
 
@@ -38,23 +48,40 @@
 
   .opt-head { margin-top:1.6rem; }
   .opt-theme { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--terracotta); }
-  .opt-title { font-family:'DM Serif Display',serif; font-size:1.5rem; color:var(--forest); line-height:1.15; margin-top:.15rem; }
+  .opt-title { font-family:'DM Serif Display',serif; font-size:1.55rem; color:var(--forest); line-height:1.15; margin-top:.15rem; }
   .opt-idea { font-size:.95rem; color:#4a4a4a; margin-top:.6rem; }
 
+  .block-h { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--sage); margin:1.5rem 0 .6rem; }
+
+  .about { background:var(--cream); border:1px solid var(--mist); border-radius:12px; padding:1.1rem 1.25rem; font-size:.9rem; color:#4a4a4a; }
+  .about b { color:var(--forest); }
+
   /* getting there */
-  .gt { background:var(--cream); border:1px solid var(--mist); border-radius:12px; padding:1.1rem 1.25rem; margin-top:1.2rem; }
-  .gt h3 { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--sage); margin-bottom:.7rem; }
-  .gt-row { display:flex; gap:.8rem; padding:.65rem 0; border-top:1px solid var(--mist); }
+  .gt { background:var(--cream); border:1px solid var(--mist); border-radius:12px; padding:1.1rem 1.25rem; }
+  .gt-row { display:flex; gap:.8rem; padding:.6rem 0; border-top:1px solid var(--mist); }
   .gt-row:first-of-type { border-top:none; }
   .gt-who { flex:0 0 128px; font-weight:700; font-size:.85rem; color:var(--forest); }
   .gt-how { font-size:.88rem; color:#555; }
-  .gt-how .drive { display:inline-block; background:var(--mist); color:var(--trail); border-radius:5px; padding:.05rem .45rem; font-size:.78rem; font-weight:600; margin-top:.2rem; }
+  .drive { display:inline-block; background:var(--mist); color:var(--trail); border-radius:5px; padding:.05rem .45rem; font-size:.78rem; font-weight:600; margin-top:.2rem; }
 
-  /* day shape */
-  .shape { margin-top:1.2rem; }
-  .shape h3 { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--sage); margin-bottom:.5rem; }
-  .shape-row { display:flex; gap:.7rem; font-size:.9rem; padding:.35rem 0; }
-  .shape-day { flex:0 0 84px; font-weight:700; color:var(--terracotta); font-size:.82rem; }
+  /* things to do */
+  .todo { display:grid; grid-template-columns:1fr 1fr; gap:.8rem; }
+  .td { background:var(--cream); border:1px solid var(--mist); border-radius:10px; padding:.85rem 1rem; }
+  .td .tdtag { font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--terracotta); margin-bottom:.2rem; }
+  .td h4 { font-size:.92rem; font-weight:700; color:var(--slate); margin-bottom:.2rem; }
+  .td p { font-size:.8rem; color:#666; }
+  .td.wide { grid-column:1 / -1; }
+
+  /* day agenda */
+  .aday { background:var(--cream); border:1px solid var(--mist); border-radius:12px; margin-bottom:.9rem; overflow:hidden; }
+  .aday-h { background:var(--forest); color:var(--sand); padding:.7rem 1.1rem; display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:.3rem; }
+  .aday-h.wed { background:var(--terracotta); }
+  .aday-h .adl { font-family:'DM Serif Display',serif; font-size:1.05rem; }
+  .aday-h .add { font-size:.74rem; opacity:.85; font-weight:600; }
+  .aday-b { padding:.9rem 1.1rem; }
+  .seg { display:flex; gap:.7rem; padding:.3rem 0; font-size:.88rem; }
+  .seg .st { flex:0 0 74px; font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--terracotta); padding-top:.15rem; }
+  .seg .sx { color:#4a4a4a; }
 
   .pt { display:grid; grid-template-columns:1fr 1fr; gap:.8rem; margin-top:1.2rem; }
   .pt-card { background:var(--cream); border:1px solid var(--mist); border-radius:10px; padding:.85rem 1rem; font-size:.85rem; }
@@ -80,10 +107,11 @@
   .foot { text-align:center; padding:2rem 1rem; font-size:.8rem; color:#aaa; }
 
   @media (max-width:560px){
+    .orient { grid-template-columns:1fr; }
+    .todo { grid-template-columns:1fr; }
     .pt { grid-template-columns:1fr; }
     .gt-row { flex-direction:column; gap:.15rem; }
     .gt-who { flex-basis:auto; }
-    .row { }
     .actions { flex-direction:column; align-items:stretch; }
     .btn { width:100%; }
   }
@@ -94,19 +122,43 @@
 <div class="hero">
   <div class="kicker">September 2026</div>
   <h1>The Atlanta Trip</h1>
-  <div class="subtitle">One trip, a few ways to do it. Pick the version that sounds best.</div>
+  <div class="subtitle">One trip, a few ways to do it. Here's the lay of the land — and how each version would work.</div>
 </div>
 
 <div class="wrap">
 
-  <p class="intro">We're flying into <strong>Atlanta</strong> for Kaylee &amp; Ben's wedding, and we'd love to turn it into real time with <strong>Sam &amp; Jen</strong> too. The wedding is its own thing — everything around it is flexible. Below are four ways the trip could go. Flip the tabs to see how each one works and how everyone gets there.</p>
+  <p class="intro">We're flying into <strong>Atlanta</strong> for Kaylee &amp; Ben's wedding, and we'd love to turn it into real time with <strong>Sam &amp; Jen</strong> too. The wedding is its own thing — everything around it is flexible. None of us knows these areas well, so this page lays out where everything is, what there is to do, and a day-by-day plan for four different versions of the trip. Read the basics first, then flip the tabs.</p>
 
   <div class="facts">
     <div class="fact"><b>Flights</b>Fly into Atlanta Fri Sep 4, 10:00 AM · home Tue Sep 8, 6:10 PM (movable to Wed).</div>
     <div class="fact"><b>Wedding</b>Kaylee &amp; Ben · Sat Sep 5, 3:14 PM · Tuckasegee, NC.</div>
   </div>
 
+  <!-- ORIENTATION / BASICS -->
+  <h2 class="section-h">The Basics — Where Everything Is</h2>
+  <p class="section-s">Three regions are in play, all within a few hours of the Atlanta airport.</p>
+  <div class="orient">
+    <div class="oc">
+      <div class="ocd">The hub</div>
+      <div class="ocn">Atlanta, GA</div>
+      <p>Where we fly in and out. A big, walkable-in-pockets city — food halls, the BeltLine trail, parks, and major attractions. Everything else branches out from here by car.</p>
+    </div>
+    <div class="oc">
+      <div class="ocd">~2.5–3 hrs NE of ATL</div>
+      <div class="ocn">Western NC</div>
+      <p>The southern Blue Ridge around Cashiers, Highlands, and Sylva — small mountain towns, big waterfalls, and Appalachian Trail access. The wedding in Tuckasegee sits right here.</p>
+    </div>
+    <div class="oc">
+      <div class="ocd">~1.5–2 hrs N of ATL</div>
+      <div class="ocn">North Georgia</div>
+      <p>Closer mountains — Helen, Dahlonega, Tallulah Gorge, Blue Ridge, and Amicalola Falls (the tallest in the Southeast). Waterfalls and cabins without the long drive.</p>
+    </div>
+  </div>
+  <div class="orient-note"><b>How Sam &amp; Jen fit in:</b> they're driving down from the Lexington, Kentucky area (roughly 5–6 hours depending on where we all meet), so a big part of choosing an option is picking a meeting point that's fair to everyone.</div>
+
   <!-- TABS -->
+  <h2 class="section-h">Four Ways to Do It</h2>
+  <p class="section-s">Each tab has the area, things to do, how everyone gets there, and a day-by-day plan.</p>
   <div class="tabs">
     <button class="tab-btn active" data-tab="A" onclick="showTab('A')">A · Western NC</button>
     <button class="tab-btn" data-tab="B" onclick="showTab('B')">B · Meet in Atlanta</button>
@@ -114,103 +166,282 @@
     <button class="tab-btn" data-tab="D" onclick="showTab('D')">D · Around Atlanta</button>
   </div>
 
-  <!-- OPTION A -->
+  <!-- ============ OPTION A ============ -->
   <div class="panel active" data-tab="A">
     <div class="opt-head">
       <div class="opt-theme">Most mountain time</div>
       <div class="opt-title">Western North Carolina</div>
-      <p class="opt-idea">Head straight up to the wedding region and stay in the mountains around Cashiers and Sylva. Sam &amp; Jen join after the wedding for a couple of easy days — a waterfall, a scenic drive, a small town, and a cabin.</p>
+      <p class="opt-idea">Go straight to the wedding region and stay in the mountains around Cashiers and Sylva. Sam &amp; Jen join after the wedding for a couple of unhurried days — a waterfall, a scenic drive, a small town, and a cabin.</p>
     </div>
+
+    <div class="block-h">About the area</div>
+    <div class="about">This is the <b>southern Blue Ridge</b> — cool, green, and full of water. <b>Cashiers</b> and <b>Highlands</b> are small, upscale mountain crossroads; <b>Sylva</b> is a laid-back downtown with breweries and coffee; and <b>Tuckasegee</b> (the wedding) sits on a river near <b>Bear Creek Lake</b>. Waterfalls are everywhere, and the Appalachian Trail is within reach for a real day hike. Early September is warm days, cool evenings.</div>
+
+    <div class="block-h">Things to do</div>
+    <div class="todo">
+      <div class="td"><div class="tdtag">Waterfall · easy</div><h4>Silver Run Falls</h4><p>A 25-ft falls and swimming hole a quarter-mile from the road, just south of Cashiers.</p></div>
+      <div class="td"><div class="tdtag">Waterfall</div><h4>High Falls, Lake Glenville</h4><p>A 100+ ft cascade on a short hike; thunders on dam-release days.</p></div>
+      <div class="td"><div class="tdtag">Waterfall · fun</div><h4>Dry Falls</h4><p>Walk <em>behind</em> a 75-ft falls on a paved path near Highlands.</p></div>
+      <div class="td"><div class="tdtag">Waterfall · big</div><h4>Whitewater Falls</h4><p>At 411 ft, the tallest in the East — a short paved walk to the overlook.</p></div>
+      <div class="td"><div class="tdtag">Hike</div><h4>Siler Bald (Appalachian Trail)</h4><p>A moderate ~4-mile round trip to a grassy summit with 360° views — a real A.T. day hike, no gear needed.</p></div>
+      <div class="td"><div class="tdtag">Town</div><h4>Sylva</h4><p>Walkable Main Street with breweries (Innovation, Lazy Hiker) and City Lights coffee &amp; bookstore.</p></div>
+      <div class="td"><div class="tdtag">Scenic drive</div><h4>Highlands–Cashiers Byway</h4><p>A classic plateau drive linking the towns, waterfalls, and overlooks.</p></div>
+      <div class="td"><div class="tdtag">Scenic drive</div><h4>Blue Ridge Parkway · Waterrock Knob</h4><p>Ridge-top cruising to a near-360° summit overlook — best in late-day light.</p></div>
+    </div>
+
+    <div class="block-h">How everyone gets there</div>
     <div class="gt">
-      <h3>How everyone gets there</h3>
-      <div class="gt-row"><div class="gt-who">Lance &amp; Megan</div><div class="gt-how">Fly TPA → ATL (nonstop, ~1.5 hrs), grab a rental, drive up to the mountains. <span class="drive">ATL → Tuckasegee ~2.5–3 hrs</span></div></div>
-      <div class="gt-row"><div class="gt-who">Sam &amp; Jen</div><div class="gt-how">Drive down from Lexington and meet after the wedding. <span class="drive">Lexington → Cashiers ~5 hrs</span></div></div>
+      <div class="gt-row"><div class="gt-who">Lance &amp; Megan</div><div class="gt-how">Fly TPA → ATL (nonstop, ~1.5 hrs), grab a rental, drive up. <span class="drive">ATL → Tuckasegee ~2.5–3 hrs</span></div></div>
+      <div class="gt-row"><div class="gt-who">Sam &amp; Jen</div><div class="gt-how">Drive down from Lexington, meet after the wedding. <span class="drive">Lexington → Cashiers ~5 hrs</span></div></div>
     </div>
-    <div class="shape">
-      <h3>The plan, briefly</h3>
-      <div class="shape-row"><div class="shape-day">Fri</div><div>Fly in, drive up, settle into wedding-area lodging.</div></div>
-      <div class="shape-row"><div class="shape-day">Sat</div><div>Wedding at 3:14 (just Lance &amp; Megan).</div></div>
-      <div class="shape-row"><div class="shape-day">Sun</div><div>Sam &amp; Jen arrive — waterfall, scenic drive, town, cabin dinner.</div></div>
-      <div class="shape-row"><div class="shape-day">Mon</div><div>A hike or an easy mountain day together.</div></div>
-      <div class="shape-row"><div class="shape-day">Tue</div><div>Drive back to ATL, fly home (or add Wednesday).</div></div>
+
+    <div class="block-h">Day by day</div>
+    <div class="aday">
+      <div class="aday-h"><span class="adl">Friday — Arrive</span><span class="add">Sep 4</span></div>
+      <div class="aday-b">
+        <div class="seg"><div class="st">Morning</div><div class="sx">Fly TPA → ATL, land 10 AM, pick up the rental.</div></div>
+        <div class="seg"><div class="st">Midday</div><div class="sx">Drive up into the mountains, lunch on the way.</div></div>
+        <div class="seg"><div class="st">Evening</div><div class="sx">Check into wedding-area lodging; easy dinner, early night.</div></div>
+      </div>
     </div>
+    <div class="aday">
+      <div class="aday-h wed"><span class="adl">Saturday — Wedding</span><span class="add">Sep 5</span></div>
+      <div class="aday-b">
+        <div class="seg"><div class="st">Daytime</div><div class="sx">Relaxed morning, nothing strenuous.</div></div>
+        <div class="seg"><div class="st">Afternoon</div><div class="sx">Kaylee &amp; Ben's wedding at 3:14 PM (just Lance &amp; Megan).</div></div>
+        <div class="seg"><div class="st">Evening</div><div class="sx">Celebrate; Sam &amp; Jen travel/settle in nearby.</div></div>
+      </div>
+    </div>
+    <div class="aday">
+      <div class="aday-h"><span class="adl">Sunday — Getaway begins</span><span class="add">Sep 6</span></div>
+      <div class="aday-b">
+        <div class="seg"><div class="st">Morning</div><div class="sx">Meet Sam &amp; Jen; coffee, then walk to Silver Run or High Falls.</div></div>
+        <div class="seg"><div class="st">Afternoon</div><div class="sx">Drive the Highlands–Cashiers byway; wander Sylva.</div></div>
+        <div class="seg"><div class="st">Evening</div><div class="sx">Cook dinner at the cabin, fire, catch up.</div></div>
+      </div>
+    </div>
+    <div class="aday">
+      <div class="aday-h"><span class="adl">Monday — Mountain day</span><span class="add">Sep 7</span></div>
+      <div class="aday-b">
+        <div class="seg"><div class="st">Morning</div><div class="sx">Hike Siler Bald on the A.T. (or an easier stretch).</div></div>
+        <div class="seg"><div class="st">Afternoon</div><div class="sx">Blue Ridge Parkway to Waterrock Knob overlook.</div></div>
+        <div class="seg"><div class="st">Evening</div><div class="sx">Last dinner in Sylva or Cashiers.</div></div>
+      </div>
+    </div>
+    <div class="aday">
+      <div class="aday-h"><span class="adl">Tuesday — Home</span><span class="add">Sep 8</span></div>
+      <div class="aday-b">
+        <div class="seg"><div class="st">Morning</div><div class="sx">Drive back to Atlanta with a big airport buffer.</div></div>
+        <div class="seg"><div class="st">Evening</div><div class="sx">Fly home 6:10 PM (or add a relaxed Wednesday).</div></div>
+      </div>
+    </div>
+
     <div class="pt">
-      <div class="pt-card"><b>Best for</b>The most Blue Ridge time — waterfalls, trails, cabin feel.</div>
-      <div class="pt-card"><b>Tradeoff</b>Tuesday drive back to ATL is a bit tight; Wednesday makes it easy.</div>
+      <div class="pt-card"><b>Best for</b>The most Blue Ridge time — waterfalls, a real trail, cabin feel.</div>
+      <div class="pt-card"><b>Tradeoff</b>Tuesday drive back to ATL is tight; Wednesday makes it easy.</div>
     </div>
   </div>
 
-  <!-- OPTION B -->
+  <!-- ============ OPTION B ============ -->
   <div class="panel" data-tab="B">
     <div class="opt-head">
       <div class="opt-theme">Everyone starts together</div>
       <div class="opt-title">Meet in Atlanta &amp; Road-Trip</div>
-      <p class="opt-idea">Sam &amp; Jen drive to Atlanta and we all start together on Friday, then share the drive toward the mountains. Lance &amp; Megan slip away for the wedding while Sam &amp; Jen have their own day, and everyone reconnects after.</p>
+      <p class="opt-idea">Sam &amp; Jen drive to Atlanta and we all start together Friday, then share the drive up to the same western NC mountains. Lance &amp; Megan slip away for the wedding while Sam &amp; Jen have their own day; everyone reconnects after.</p>
     </div>
+
+    <div class="block-h">About the area</div>
+    <div class="about">Same beautiful <b>western NC mountains</b> as Option A, but the trip starts with a night in <b>Atlanta</b> so we're together from the first evening. Atlanta gives an easy, fun Friday — a food hall and a walk on the BeltLine — before the drive north the next day.</div>
+
+    <div class="block-h">Things to do</div>
+    <div class="todo">
+      <div class="td"><div class="tdtag">Friday · Atlanta</div><h4>Ponce City Market &amp; the BeltLine</h4><p>A huge food hall with a rooftop; step out onto the BeltLine trail for a stroll. An easy first night together.</p></div>
+      <div class="td"><div class="tdtag">In the mountains</div><h4>Waterfalls &amp; the A.T.</h4><p>Silver Run, High Falls, Whitewater, and a Siler Bald hike — the same highlights as Option A.</p></div>
+      <div class="td"><div class="tdtag">Town</div><h4>Sylva &amp; Cashiers</h4><p>Small-town Main Streets, breweries, coffee, and the Highlands–Cashiers scenic drive.</p></div>
+      <div class="td wide"><div class="tdtag">The point</div><h4>Shared road-trip time</h4><p>The whole draw here is doing the miles together — car snacks, playlists, and a slow reunion instead of meeting up halfway through.</p></div>
+    </div>
+
+    <div class="block-h">How everyone gets there</div>
     <div class="gt">
-      <h3>How everyone gets there</h3>
       <div class="gt-row"><div class="gt-who">Lance &amp; Megan</div><div class="gt-how">Fly TPA → ATL (nonstop, ~1.5 hrs) and meet up in Atlanta Friday.</div></div>
       <div class="gt-row"><div class="gt-who">Sam &amp; Jen</div><div class="gt-how">Drive to Atlanta to meet everyone Friday. <span class="drive">Lexington → Atlanta ~6 hrs</span></div></div>
-      <div class="gt-row"><div class="gt-who">Together</div><div class="gt-how">Then everyone drives north toward the wedding region. <span class="drive">ATL → mountains ~2.5–3 hrs</span></div></div>
+      <div class="gt-row"><div class="gt-who">Together</div><div class="gt-how">Everyone drives north toward the wedding region. <span class="drive">ATL → mountains ~2.5–3 hrs</span></div></div>
     </div>
-    <div class="shape">
-      <h3>The plan, briefly</h3>
-      <div class="shape-row"><div class="shape-day">Fri</div><div>Everyone meets in Atlanta — a night in the city together.</div></div>
-      <div class="shape-row"><div class="shape-day">Sat</div><div>Drive up; Lance &amp; Megan to the wedding, Sam &amp; Jen their own day.</div></div>
-      <div class="shape-row"><div class="shape-day">Sun–Mon</div><div>Shared mountain days together.</div></div>
-      <div class="shape-row"><div class="shape-day">Tue</div><div>Back to ATL; fly home / they drive home.</div></div>
+
+    <div class="block-h">Day by day</div>
+    <div class="aday">
+      <div class="aday-h"><span class="adl">Friday — Atlanta night</span><span class="add">Sep 4</span></div>
+      <div class="aday-b">
+        <div class="seg"><div class="st">Afternoon</div><div class="sx">Everyone lands / arrives in Atlanta.</div></div>
+        <div class="seg"><div class="st">Evening</div><div class="sx">Ponce City Market dinner + a BeltLine walk together.</div></div>
+      </div>
     </div>
+    <div class="aday">
+      <div class="aday-h wed"><span class="adl">Saturday — Drive up + wedding</span><span class="add">Sep 5</span></div>
+      <div class="aday-b">
+        <div class="seg"><div class="st">Morning</div><div class="sx">Drive north into the mountains together.</div></div>
+        <div class="seg"><div class="st">Afternoon</div><div class="sx">Lance &amp; Megan to the wedding (3:14); Sam &amp; Jen have their own day.</div></div>
+        <div class="seg"><div class="st">Evening</div><div class="sx">Regroup at the cabin.</div></div>
+      </div>
+    </div>
+    <div class="aday">
+      <div class="aday-h"><span class="adl">Sunday–Monday — Mountains</span><span class="add">Sep 6–7</span></div>
+      <div class="aday-b">
+        <div class="seg"><div class="st">Days</div><div class="sx">Waterfalls, a scenic drive, a town afternoon, and one good hike — together.</div></div>
+        <div class="seg"><div class="st">Evenings</div><div class="sx">Cabin dinners and downtime.</div></div>
+      </div>
+    </div>
+    <div class="aday">
+      <div class="aday-h"><span class="adl">Tuesday — Home</span><span class="add">Sep 8</span></div>
+      <div class="aday-b">
+        <div class="seg"><div class="st">Day</div><div class="sx">Drive back to Atlanta; fly out, Sam &amp; Jen drive home (or extend to Wed).</div></div>
+      </div>
+    </div>
+
     <div class="pt">
       <div class="pt-card"><b>Best for</b>Starting together, shared road-trip time, an easy Friday in Atlanta.</div>
-      <div class="pt-card"><b>Tradeoff</b>Sam &amp; Jen drive farther, and need their own plan wedding day.</div>
+      <div class="pt-card"><b>Tradeoff</b>Sam &amp; Jen drive farther, and need their own plan on wedding day.</div>
     </div>
   </div>
 
-  <!-- OPTION C -->
+  <!-- ============ OPTION C ============ -->
   <div class="panel" data-tab="C">
     <div class="opt-head">
       <div class="opt-theme">Closer to the airport</div>
       <div class="opt-title">North Georgia Mountains</div>
-      <p class="opt-idea">Base the getaway in the North Georgia mountains — Clayton, Helen, Blue Ridge, Amicalola Falls — much closer to Atlanta, with a separate drive up to the wedding for the day.</p>
+      <p class="opt-idea">Base the getaway in the North Georgia mountains — much closer to Atlanta — with a separate drive up to the wedding for the day. Gorges, waterfalls, quirky towns, and cabins without the long haul.</p>
     </div>
+
+    <div class="block-h">About the area</div>
+    <div class="about">The <b>North Georgia mountains</b> are the southern tip of the Blue Ridge, only ~1.5–2 hours from Atlanta. <b>Helen</b> is a fun Bavarian-themed village on the Chattahoochee (tubing, an alpine coaster); <b>Dahlonega</b> is a historic gold-rush town that's now Georgia wine country; <b>Tallulah Gorge</b> is a dramatic 1,000-ft canyon; <b>Amicalola Falls</b> (729 ft) is the tallest in the Southeast and the gateway to the Appalachian Trail's approach; and <b>Blue Ridge</b> and <b>Clayton</b> are easygoing mountain towns.</div>
+
+    <div class="block-h">Things to do</div>
+    <div class="todo">
+      <div class="td"><div class="tdtag">Gorge · hike</div><h4>Tallulah Gorge State Park</h4><p>A 1,000-ft canyon with rim trails and a swinging suspension bridge 80 ft above the river (600 steps down).</p></div>
+      <div class="td"><div class="tdtag">Waterfall · tallest</div><h4>Amicalola Falls</h4><p>729 ft — the highest in the Southeast — with viewing decks and the A.T. approach trail.</p></div>
+      <div class="td"><div class="tdtag">Town · fun</div><h4>Helen</h4><p>Bavarian-style village: German food, river tubing, shops, and an alpine mountain coaster.</p></div>
+      <div class="td"><div class="tdtag">Town · wine</div><h4>Dahlonega</h4><p>Historic gold-rush square, a gold museum, and North Georgia wine tasting rooms.</p></div>
+      <div class="td"><div class="tdtag">Town</div><h4>Blue Ridge, GA</h4><p>Charming downtown with shops, restaurants, and a scenic railway.</p></div>
+      <div class="td"><div class="tdtag">Gateway town</div><h4>Clayton</h4><p>Laid-back base near Tallulah with cafes, trails, and lake access.</p></div>
+    </div>
+
+    <div class="block-h">How everyone gets there</div>
     <div class="gt">
-      <h3>How everyone gets there</h3>
-      <div class="gt-row"><div class="gt-who">Lance &amp; Megan</div><div class="gt-how">Fly TPA → ATL (nonstop, ~1.5 hrs), rental, short drive to the NG mountains. <span class="drive">ATL → North Georgia ~1.5–2 hrs</span></div></div>
+      <div class="gt-row"><div class="gt-who">Lance &amp; Megan</div><div class="gt-how">Fly TPA → ATL (nonstop, ~1.5 hrs), rental, short drive up. <span class="drive">ATL → North Georgia ~1.5–2 hrs</span></div></div>
       <div class="gt-row"><div class="gt-who">Sam &amp; Jen</div><div class="gt-how">Drive down from Lexington to the same area. <span class="drive">Lexington → North Georgia ~5 hrs</span></div></div>
       <div class="gt-row"><div class="gt-who">Wedding day</div><div class="gt-how">Lance &amp; Megan drive over to Tuckasegee and back. <span class="drive">NG → Tuckasegee ~2 hrs each way*</span></div></div>
     </div>
-    <div class="shape">
-      <h3>The plan, briefly</h3>
-      <div class="shape-row"><div class="shape-day">Fri</div><div>Fly in, short drive to a North Georgia cabin.</div></div>
-      <div class="shape-row"><div class="shape-day">Sat</div><div>Lance &amp; Megan drive to the wedding; Sam &amp; Jen relax in NG.</div></div>
-      <div class="shape-row"><div class="shape-day">Sun–Mon</div><div>Gorges, waterfalls, and towns together.</div></div>
-      <div class="shape-row"><div class="shape-day">Tue</div><div>Short hop back to ATL, fly home.</div></div>
+
+    <div class="block-h">Day by day</div>
+    <div class="aday">
+      <div class="aday-h"><span class="adl">Friday — Arrive</span><span class="add">Sep 4</span></div>
+      <div class="aday-b">
+        <div class="seg"><div class="st">Morning</div><div class="sx">Fly into ATL, pick up the rental.</div></div>
+        <div class="seg"><div class="st">Afternoon</div><div class="sx">Short drive to a North Georgia cabin; settle in.</div></div>
+        <div class="seg"><div class="st">Evening</div><div class="sx">Dinner in Helen or Dahlonega.</div></div>
+      </div>
     </div>
+    <div class="aday">
+      <div class="aday-h wed"><span class="adl">Saturday — Wedding day</span><span class="add">Sep 5</span></div>
+      <div class="aday-b">
+        <div class="seg"><div class="st">Day</div><div class="sx">Lance &amp; Megan drive to the wedding in Tuckasegee (3:14).</div></div>
+        <div class="seg"><div class="st">Meanwhile</div><div class="sx">Sam &amp; Jen relax in NG — a town, a short trail, wine tasting.</div></div>
+      </div>
+    </div>
+    <div class="aday">
+      <div class="aday-h"><span class="adl">Sunday — Gorge &amp; falls</span><span class="add">Sep 6</span></div>
+      <div class="aday-b">
+        <div class="seg"><div class="st">Morning</div><div class="sx">Tallulah Gorge — rim walk and the suspension bridge.</div></div>
+        <div class="seg"><div class="st">Afternoon</div><div class="sx">Amicalola Falls viewing decks; easy trails.</div></div>
+        <div class="seg"><div class="st">Evening</div><div class="sx">Cabin dinner together.</div></div>
+      </div>
+    </div>
+    <div class="aday">
+      <div class="aday-h"><span class="adl">Monday — Towns &amp; river</span><span class="add">Sep 7</span></div>
+      <div class="aday-b">
+        <div class="seg"><div class="st">Morning</div><div class="sx">Helen — river tubing or a wander through the village.</div></div>
+        <div class="seg"><div class="st">Afternoon</div><div class="sx">Dahlonega square + a wine tasting room.</div></div>
+        <div class="seg"><div class="st">Evening</div><div class="sx">Last dinner in the mountains.</div></div>
+      </div>
+    </div>
+    <div class="aday">
+      <div class="aday-h"><span class="adl">Tuesday — Home</span><span class="add">Sep 8</span></div>
+      <div class="aday-b">
+        <div class="seg"><div class="st">Day</div><div class="sx">Short, low-stress drive back to ATL; fly home.</div></div>
+      </div>
+    </div>
+
     <div class="pt">
       <div class="pt-card"><b>Best for</b>Staying near the airport, easy return, mountains without the long haul.</div>
       <div class="pt-card"><b>Tradeoff</b>Wedding-day drive is longer — *worth confirming the route first.</div>
     </div>
   </div>
 
-  <!-- OPTION D -->
+  <!-- ============ OPTION D ============ -->
   <div class="panel" data-tab="D">
     <div class="opt-head">
       <div class="opt-theme">Simplest logistics</div>
       <div class="opt-title">Around Atlanta</div>
-      <p class="opt-idea">Keep Sam &amp; Jen time in and around Atlanta — food, walkable neighborhoods, and one easy day trip. Lance &amp; Megan make a separate overnight run to the wedding and come back.</p>
+      <p class="opt-idea">Keep Sam &amp; Jen time in and around Atlanta — food, walkable neighborhoods, big attractions, and one easy day trip. Lance &amp; Megan make a separate overnight run to the wedding and come back.</p>
     </div>
+
+    <div class="block-h">About the area</div>
+    <div class="about"><b>Atlanta</b> is green, spread out, and best explored in neighborhoods. The <b>BeltLine</b> ties them together — a 22-mile trail (built on old rail lines) lined with murals, breweries, and food halls. <b>Midtown</b> has the big parks and museums; <b>Decatur</b> is a walkable small-city square just east. It's the easy, weather-proof option with the most food and indoor choices.</div>
+
+    <div class="block-h">Things to do</div>
+    <div class="todo">
+      <div class="td"><div class="tdtag">Walk / bike</div><h4>Atlanta BeltLine (Eastside)</h4><p>A 22-mile trail loop with murals and public art; the most fun way to see the city on foot or bike.</p></div>
+      <div class="td"><div class="tdtag">Food + rooftop</div><h4>Ponce City Market</h4><p>A landmark food hall with a rooftop Skyline Park — games, mini-golf, and skyline views.</p></div>
+      <div class="td"><div class="tdtag">Park</div><h4>Piedmont Park</h4><p>Midtown's big green space with skyline views, paths, and easy picnic spots.</p></div>
+      <div class="td"><div class="tdtag">Attraction</div><h4>Georgia Aquarium</h4><p>One of the world's largest — whale sharks and manta rays; a good weather-proof morning.</p></div>
+      <div class="td"><div class="tdtag">History</div><h4>MLK Historical Park + Civil &amp; Human Rights</h4><p>Pair Dr. King's birth home and church with the museum for a moving half-day.</p></div>
+      <div class="td"><div class="tdtag">Food · town</div><h4>Decatur &amp; Krog Street Market</h4><p>Walkable Decatur square plus another great food hall on the BeltLine.</p></div>
+      <div class="td wide"><div class="tdtag">Optional day trip</div><h4>North Georgia nature day</h4><p>If you want one mountain day, Tallulah Gorge or Amicalola Falls are ~1.5–2 hrs away — an easy add.</p></div>
+    </div>
+
+    <div class="block-h">How everyone gets there</div>
     <div class="gt">
-      <h3>How everyone gets there</h3>
-      <div class="gt-row"><div class="gt-who">Lance &amp; Megan</div><div class="gt-how">Fly TPA → ATL (nonstop, ~1.5 hrs). Wedding is a separate drive up and back. <span class="drive">ATL → Tuckasegee ~2.5–3 hrs each way</span></div></div>
+      <div class="gt-row"><div class="gt-who">Lance &amp; Megan</div><div class="gt-how">Fly TPA → ATL (nonstop, ~1.5 hrs). Wedding is a separate overnight drive. <span class="drive">ATL → Tuckasegee ~2.5–3 hrs each way</span></div></div>
       <div class="gt-row"><div class="gt-who">Sam &amp; Jen</div><div class="gt-how">Drive down to Atlanta. <span class="drive">Lexington → Atlanta ~6 hrs</span></div></div>
     </div>
-    <div class="shape">
-      <h3>The plan, briefly</h3>
-      <div class="shape-row"><div class="shape-day">Fri</div><div>Everyone in Atlanta — dinner out.</div></div>
-      <div class="shape-row"><div class="shape-day">Sat</div><div>Lance &amp; Megan up to the wedding (overnight); Sam &amp; Jen explore the city.</div></div>
-      <div class="shape-row"><div class="shape-day">Sun–Mon</div><div>Back together in Atlanta — food, neighborhoods, one day trip.</div></div>
-      <div class="shape-row"><div class="shape-day">Tue</div><div>Easy — already at the airport.</div></div>
+
+    <div class="block-h">Day by day</div>
+    <div class="aday">
+      <div class="aday-h"><span class="adl">Friday — Atlanta</span><span class="add">Sep 4</span></div>
+      <div class="aday-b">
+        <div class="seg"><div class="st">Afternoon</div><div class="sx">Everyone arrives; drop bags.</div></div>
+        <div class="seg"><div class="st">Evening</div><div class="sx">Ponce City Market or Krog Street; a BeltLine stroll.</div></div>
+      </div>
     </div>
+    <div class="aday">
+      <div class="aday-h wed"><span class="adl">Saturday — Wedding + city</span><span class="add">Sep 5</span></div>
+      <div class="aday-b">
+        <div class="seg"><div class="st">Day</div><div class="sx">Lance &amp; Megan drive up for the wedding (overnight).</div></div>
+        <div class="seg"><div class="st">Meanwhile</div><div class="sx">Sam &amp; Jen do the Aquarium or the civil-rights sites.</div></div>
+      </div>
+    </div>
+    <div class="aday">
+      <div class="aday-h"><span class="adl">Sunday — Back together</span><span class="add">Sep 6</span></div>
+      <div class="aday-b">
+        <div class="seg"><div class="st">Morning</div><div class="sx">Lance &amp; Megan drive back to Atlanta.</div></div>
+        <div class="seg"><div class="st">Afternoon</div><div class="sx">Piedmont Park + BeltLine; explore a neighborhood.</div></div>
+        <div class="seg"><div class="st">Evening</div><div class="sx">Big group dinner in Decatur.</div></div>
+      </div>
+    </div>
+    <div class="aday">
+      <div class="aday-h"><span class="adl">Monday — City or day trip</span><span class="add">Sep 7</span></div>
+      <div class="aday-b">
+        <div class="seg"><div class="st">Option 1</div><div class="sx">More Atlanta — museums, food, neighborhoods.</div></div>
+        <div class="seg"><div class="st">Option 2</div><div class="sx">A North Georgia nature day (Tallulah or Amicalola).</div></div>
+      </div>
+    </div>
+    <div class="aday">
+      <div class="aday-h"><span class="adl">Tuesday — Home</span><span class="add">Sep 8</span></div>
+      <div class="aday-b">
+        <div class="seg"><div class="st">Day</div><div class="sx">Easy — already at the airport. Fly out 6:10 PM.</div></div>
+      </div>
+    </div>
+
     <div class="pt">
       <div class="pt-card"><b>Best for</b>Simplest airport logistics, lots of food, weather-proof.</div>
       <div class="pt-card"><b>Tradeoff</b>A big wedding side trip, and the least mountain time.</div>
@@ -253,6 +484,7 @@
   function showTab(t){
     document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.tab===t); });
     document.querySelectorAll('.panel').forEach(function(p){ p.classList.toggle('active', p.dataset.tab===t); });
+    window.scrollTo({top: document.querySelector('.tabs').offsetTop - 10, behavior:'smooth'});
   }
 
   function loadVotes(){ try { return JSON.parse(localStorage.getItem(VOTE_KEY))||{}; } catch(e){ return {}; } }

@@ -573,11 +573,11 @@
   function toggleRoute(key){
     var btn = document.querySelector('.rt-btn[data-opt="' + key + '"]');
     var on = btn.classList.toggle('on');
-    if (on) { layers[key].addTo(map); updateSummary(key); }
-    else { map.removeLayer(layers[key]); if (activeSummary === key) { var anyOn = Object.keys(layers).filter(function(k){return map.hasLayer(layers[k]);}); if (anyOn.length) updateSummary(anyOn[anyOn.length-1]); } }
-    var onCount = document.querySelectorAll('.rt-btn.on').length;
-    if (onCount !== 1) {
-      document.getElementById('rs-meet').textContent = onCount===0 ? 'Toggle a route to see its summary.' : 'Showing multiple routes — toggle to a single one for a focused summary.';
+    if (on) { layers[key].addTo(map); } else { map.removeLayer(layers[key]); }
+    var onKeys = Array.from(document.querySelectorAll('.rt-btn.on')).map(function(b){ return b.dataset.opt; });
+    if (onKeys.length === 1) { updateSummary(onKeys[0]); }
+    else {
+      document.getElementById('rs-meet').textContent = onKeys.length===0 ? 'Toggle a route to see its summary.' : 'Showing multiple routes — toggle to a single one for a focused summary.';
       document.getElementById('rs-base').textContent = '—';
       document.getElementById('rs-wed').textContent = '—';
       document.getElementById('rs-return').textContent = '—';
